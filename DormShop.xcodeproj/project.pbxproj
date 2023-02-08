@@ -11,6 +11,8 @@
 		4A675EEA519545B233B85AFE /* Pods_DormShopTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C70C95D078886CD0DCFCD22 /* Pods_DormShopTests.framework */; };
 		7D55BC7D134EA83D0D8D0718 /* Pods_DormShop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAEFB6CEAB86D868A9CD22D /* Pods_DormShop.framework */; };
 		F61214B029923B3100C94D1C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214AF29923B3100C94D1C /* ProfileViewController.swift */; };
+		F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B1299261B900C94D1C /* FeedViewController.swift */; };
+		F61214B4299263F900C94D1C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B3299263F900C94D1C /* PostCell.swift */; };
 		F6F77B5F29918A73009C966C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F77B5E29918A73009C966C /* AppDelegate.swift */; };
 		F6F77B6129918A73009C966C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F77B6029918A73009C966C /* SceneDelegate.swift */; };
 		F6F77B6329918A73009C966C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F77B6229918A73009C966C /* LoginViewController.swift */; };
@@ -50,6 +52,8 @@
 		D44800D196015EA03F4C8FA9 /* Pods-DormShopTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DormShopTests.release.xcconfig"; path = "Target Support Files/Pods-DormShopTests/Pods-DormShopTests.release.xcconfig"; sourceTree = "<group>"; };
 		EFAEFB6CEAB86D868A9CD22D /* Pods_DormShop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DormShop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F61214AF29923B3100C94D1C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F61214B1299261B900C94D1C /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		F61214B3299263F900C94D1C /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		F6F77B5B29918A73009C966C /* DormShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DormShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6F77B5E29918A73009C966C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6F77B6029918A73009C966C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 				F6F77B6C29918A74009C966C /* Info.plist */,
 				F6F77B8E2991A3F3009C966C /* SignupViewController.swift */,
 				F61214AF29923B3100C94D1C /* ProfileViewController.swift */,
+				F61214B1299261B900C94D1C /* FeedViewController.swift */,
+				F61214B3299263F900C94D1C /* PostCell.swift */,
 			);
 			path = DormShop;
 			sourceTree = "<group>";
@@ -412,10 +418,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F61214B4299263F900C94D1C /* PostCell.swift in Sources */,
 				F6F77B6329918A73009C966C /* LoginViewController.swift in Sources */,
 				F6F77B5F29918A73009C966C /* AppDelegate.swift in Sources */,
 				F61214B029923B3100C94D1C /* ProfileViewController.swift in Sources */,
 				F6F77B8F2991A3F3009C966C /* SignupViewController.swift in Sources */,
+				F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */,
 				F6F77B6129918A73009C966C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,0 +1,6 @@
+framework module Pods_DormShop_DormShopUITests {
+  umbrella header "Pods-DormShop-DormShopUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
