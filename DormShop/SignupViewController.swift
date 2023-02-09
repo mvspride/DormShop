@@ -10,31 +10,35 @@ import Parse
 
 class SignupViewController: UIViewController{
     
+    let user = PFUser()
+
     @IBOutlet weak var usernametxt: UITextField!
     @IBOutlet weak var emailtxt: UITextField!
     @IBOutlet weak var passwordtxt: UITextField!
     @IBOutlet weak var confirmPasswordtxt: UITextField!
     @IBOutlet weak var sigupErrorTxt: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         sigupErrorTxt.text = ""
         self.hideKeyboardWhenTappedAround()
 
     }
+    
     @IBAction func signUp(_ sender: UIButton){
         if passwordtxt.text != confirmPasswordtxt.text{
             sigupErrorTxt.text = "passwords do not match!"
+
+        }else if (emailtxt.text?.suffix(4) != ".edu"){
+            sigupErrorTxt.text = "Please enter a valid school email"
         }else{
-            let user = PFUser()
             user.username = usernametxt.text
             user.email  = emailtxt.text
             user.password = passwordtxt.text
-            
-            user.signUpInBackground{
+            user.signUpInBackground{ [self]
                 (success,error) in if success{
                     PFUser.logOut()
-                    self.showPopUp(email: user.email ?? "default", username: user.username ?? "default")
+                    showPopUp(email: user.email ?? "default", username: user.username ?? "default")
                 }else{
                     PFUser.logOut()
                     print("Error: \(String(describing: error?.localizedDescription))")
@@ -43,6 +47,14 @@ class SignupViewController: UIViewController{
                 }
             }
         }
+    }
+    
+    @IBAction func resendCodeBtn(_ sender: UIButton) {
+        user.email = ",.edu"
+        print("hello")
+        user.saveInBackground()
+        user.email = user.email
+        user.saveInBackground()
     }
     
     @objc func showPopUp(email: String, username : String){

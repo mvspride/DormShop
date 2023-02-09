@@ -21,7 +21,9 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
+
 class LoginViewController: UIViewController {
+    
     
     @IBOutlet weak var usernameTxt: UITextField!
     @IBOutlet weak var passwordTxt: UITextField!
@@ -31,18 +33,36 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         loginErrorTxt.text = ""
+
+
+        
     }
+  
     
     
     @IBAction func login(_ sender: UIButton) {
         let username = usernameTxt.text!
         let password = passwordTxt.text!
         
-        PFUser.logInWithUsername(inBackground: username, password: password){
+     
+
+        
+        PFUser.logInWithUsername(inBackground: username, password: password){ [self]
             (user, error) in
             if user != nil {
                 UserDefaults.standard.set(true, forKey: "userLoggedIn")
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                let isNewUser = user!["isNewUser"] as! Bool
+                //if its the user 1st time login in, send to the choose path VC
+                    if(isNewUser){
+                        self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                        user!["isNewUser"] = false
+                        user?.saveInBackground()
+                    }
+                    else{
+                        self.performSegue(withIdentifier: "toFeedSegue", sender: nil)
+                        
+                    }
+             
             }else{
                 print("Error: \(String(describing: error?.localizedDescription))")
                 self.loginErrorTxt.text = "\(error?.localizedDescription ?? "")"
