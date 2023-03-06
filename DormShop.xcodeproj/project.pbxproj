@@ -13,6 +13,7 @@
 		F61214B029923B3100C94D1C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214AF29923B3100C94D1C /* ProfileViewController.swift */; };
 		F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B1299261B900C94D1C /* FeedViewController.swift */; };
 		F61214B4299263F900C94D1C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B3299263F900C94D1C /* PostCell.swift */; };
+		F65A6F5D29959EC300B2EF08 /* RoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65A6F5C29959EC300B2EF08 /* RoleViewController.swift */; };
 		F6F77B5F29918A73009C966C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F77B5E29918A73009C966C /* AppDelegate.swift */; };
 		F6F77B6129918A73009C966C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F77B6029918A73009C966C /* SceneDelegate.swift */; };
 		F6F77B6329918A73009C966C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F77B6229918A73009C966C /* LoginViewController.swift */; };
@@ -54,6 +55,7 @@
 		F61214AF29923B3100C94D1C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F61214B1299261B900C94D1C /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		F61214B3299263F900C94D1C /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		F65A6F5C29959EC300B2EF08 /* RoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleViewController.swift; sourceTree = "<group>"; };
 		F6F77B5B29918A73009C966C /* DormShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DormShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6F77B5E29918A73009C966C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6F77B6029918A73009C966C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				F61214AF29923B3100C94D1C /* ProfileViewController.swift */,
 				F61214B1299261B900C94D1C /* FeedViewController.swift */,
 				F61214B3299263F900C94D1C /* PostCell.swift */,
+				F65A6F5C29959EC300B2EF08 /* RoleViewController.swift */,
 			);
 			path = DormShop;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				F6F77B6329918A73009C966C /* LoginViewController.swift in Sources */,
 				F6F77B5F29918A73009C966C /* AppDelegate.swift in Sources */,
 				F61214B029923B3100C94D1C /* ProfileViewController.swift in Sources */,
+				F65A6F5D29959EC300B2EF08 /* RoleViewController.swift in Sources */,
 				F6F77B8F2991A3F3009C966C /* SignupViewController.swift in Sources */,
 				F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */,
 				F6F77B6129918A73009C966C /* SceneDelegate.swift in Sources */,

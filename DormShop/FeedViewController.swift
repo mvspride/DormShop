@@ -7,55 +7,76 @@
 
 import UIKit
 import Parse
+import AlamofireImage
+import AVKit
+import AVFAudio
+
 
 class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBAction func searchButton(_ sender: UIButton) {
+        
+    }
     @IBOutlet var tableView: UITableView!
     
-    var numbers : [Int] = [2, 4, 6, 8]
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
-    }
+    var user = PFUser.current()
+    var posts = [PFObject]()
+    var businesses = [PFObject]()
+    var selectedPost: PFObject!
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let post = numbers[indexPath.section]
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
-           
-            return cell
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let query = PFQuery(className: "Posts")
+        query.includeKey("description")
+        query.limit = 20
+        query.findObjectsInBackground{(posts,error) in
+            if posts != nil {
+                self.posts = posts!
+                self.tableView.reloadData()
+            }
+            // Do any additional setup after loading the view.
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell")!
-        
-        return cell
         
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         
-        var keys: NSDictionary?
-
-        if let path = Bundle.main.path(forResource: "Keys", ofType: "plist") {
-               keys = NSDictionary(contentsOfFile: path)
-           }
-        if let dict = keys {
-            let applicationId = dict["parseApplicationId"] as? String
-            let clientKey = dict["parseClientKey"] as? String
-            let server = "https://parseapi.back4app.com"
-        }
-        print(keys?["parseApplicationId"])
-        
 
         // Do any additional setup after loading the view.
     }
     
-    
-    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //removes top bar. simulates tiktok
+        //tableView?.frame = view.bounds
+    }
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
+
+        let post = posts[indexPath.row]
+        cell.captionLabel.text = post["description"] as? String
+        print(post["description"])
+        cell.postIndex = indexPath.row
+        let imageFile = post["content"] as! PFFileObject
+        let urlString = imageFile.url!
+        let url = URL(string: urlString)!
+        cell.contentUIView.af.setImage(withURL: url)
+        cell.delegate = self
+        return cell
+        
+    }
+    
+    
+   
     /*
     // MARK: - Navigation
 
@@ -67,3 +88,27 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     */
 
 }
+extension FeedViewController: PostCellDelegate{
+    func profileButton(with username: String, postIndex: Int){
+        let post = posts[postIndex]
+        print(post["description"] as Any)
+    }
+    func likeButton(with username: String, postIndex: Int){
+        let post = posts[postIndex]
+        print(post["description"] as Any)
+
+    }
+    func commentButton(with username: String, postIndex: Int){
+        let post = posts[postIndex]
+        print(post["description"] as Any)
+
+    }
+    func replyButton(with username: String, postIndex: Int){
+        let post = posts[postIndex]
+        print(post["description"] as Any)
+
+    }
+    
+}
+
+

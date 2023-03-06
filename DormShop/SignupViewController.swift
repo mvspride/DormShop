@@ -21,14 +21,17 @@ class SignupViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         sigupErrorTxt.text = ""
+        
+        //function is created in LoginViewController extention class
         self.hideKeyboardWhenTappedAround()
 
     }
-    
+    //on clicking sign up button
     @IBAction func signUp(_ sender: UIButton){
+        //if passwords do not match(case Sensitive) reject
         if passwordtxt.text != confirmPasswordtxt.text{
             sigupErrorTxt.text = "passwords do not match!"
-
+                //if email is does not end in .edu, reject
         }else if (emailtxt.text?.suffix(4) != ".edu"){
             sigupErrorTxt.text = "Please enter a valid school email"
         }else{
@@ -48,11 +51,9 @@ class SignupViewController: UIViewController{
             }
         }
     }
-    
+    //on button click, resend link to verify account in email
     @IBAction func resendCodeBtn(_ sender: UIButton) {
         user.email = ",.edu"
-        print("hello")
-        user.saveInBackground()
         user.email = user.email
         user.saveInBackground()
     }
