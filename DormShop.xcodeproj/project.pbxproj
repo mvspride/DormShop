@@ -13,6 +13,18 @@
 		F61214B029923B3100C94D1C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214AF29923B3100C94D1C /* ProfileViewController.swift */; };
 		F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B1299261B900C94D1C /* FeedViewController.swift */; };
 		F61214B4299263F900C94D1C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B3299263F900C94D1C /* PostCell.swift */; };
+		F619CA0329B82C72007CEA3C /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619CA0229B82C72007CEA3C /* InboxViewController.swift */; };
+		F619CA0529B85FCE007CEA3C /* InboxViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619CA0429B85FCE007CEA3C /* InboxViewCell.swift */; };
+		F619CA0729BC2491007CEA3C /* ActivityViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619CA0629BC2491007CEA3C /* ActivityViewCell.swift */; };
+		F65A6F5D29959EC300B2EF08 /* RoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65A6F5C29959EC300B2EF08 /* RoleViewController.swift */; };
+		F68548BD29B6FB1400D7F6AC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68548BC29B6FB1400D7F6AC /* SearchViewController.swift */; };
+		F68548BF29B6FE7100D7F6AC /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68548BE29B6FE7100D7F6AC /* SearchResultCell.swift */; };
+		F69E57AB29BC79ED00E531D8 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69E57AA29BC79ED00E531D8 /* MenuTableViewController.swift */; };
+		F69E57AD29BD93EB00E531D8 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69E57AC29BD93EB00E531D8 /* MenuCell.swift */; };
+		F6AB640729BFC1DA0042DD67 /* CreateBusinessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AB640629BFC1DA0042DD67 /* CreateBusinessViewController.swift */; };
+		F6AB640929BFC51A0042DD67 /* UploadPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AB640829BFC51A0042DD67 /* UploadPostViewController.swift */; };
+		F6B005D329BFC7100029C096 /* BusinessInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B005D229BFC7100029C096 /* BusinessInboxViewController.swift */; };
+		F6B005D529BFCD390029C096 /* BusinessProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B005D429BFCD390029C096 /* BusinessProfileViewController.swift */; };
 		F6F77B5F29918A73009C966C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F77B5E29918A73009C966C /* AppDelegate.swift */; };
 		F6F77B6129918A73009C966C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F77B6029918A73009C966C /* SceneDelegate.swift */; };
 		F6F77B6329918A73009C966C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F77B6229918A73009C966C /* LoginViewController.swift */; };
@@ -54,6 +66,18 @@
 		F61214AF29923B3100C94D1C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F61214B1299261B900C94D1C /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		F61214B3299263F900C94D1C /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		F619CA0229B82C72007CEA3C /* InboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
+		F619CA0429B85FCE007CEA3C /* InboxViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewCell.swift; sourceTree = "<group>"; };
+		F619CA0629BC2491007CEA3C /* ActivityViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewCell.swift; sourceTree = "<group>"; };
+		F65A6F5C29959EC300B2EF08 /* RoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleViewController.swift; sourceTree = "<group>"; };
+		F68548BC29B6FB1400D7F6AC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		F68548BE29B6FE7100D7F6AC /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		F69E57AA29BC79ED00E531D8 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		F69E57AC29BD93EB00E531D8 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		F6AB640629BFC1DA0042DD67 /* CreateBusinessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBusinessViewController.swift; sourceTree = "<group>"; };
+		F6AB640829BFC51A0042DD67 /* UploadPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostViewController.swift; sourceTree = "<group>"; };
+		F6B005D229BFC7100029C096 /* BusinessInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessInboxViewController.swift; sourceTree = "<group>"; };
+		F6B005D429BFCD390029C096 /* BusinessProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessProfileViewController.swift; sourceTree = "<group>"; };
 		F6F77B5B29918A73009C966C /* DormShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DormShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6F77B5E29918A73009C966C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6F77B6029918A73009C966C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +172,18 @@
 				F61214AF29923B3100C94D1C /* ProfileViewController.swift */,
 				F61214B1299261B900C94D1C /* FeedViewController.swift */,
 				F61214B3299263F900C94D1C /* PostCell.swift */,
+				F65A6F5C29959EC300B2EF08 /* RoleViewController.swift */,
+				F68548BC29B6FB1400D7F6AC /* SearchViewController.swift */,
+				F68548BE29B6FE7100D7F6AC /* SearchResultCell.swift */,
+				F619CA0229B82C72007CEA3C /* InboxViewController.swift */,
+				F619CA0429B85FCE007CEA3C /* InboxViewCell.swift */,
+				F619CA0629BC2491007CEA3C /* ActivityViewCell.swift */,
+				F69E57AA29BC79ED00E531D8 /* MenuTableViewController.swift */,
+				F69E57AC29BD93EB00E531D8 /* MenuCell.swift */,
+				F6AB640629BFC1DA0042DD67 /* CreateBusinessViewController.swift */,
+				F6AB640829BFC51A0042DD67 /* UploadPostViewController.swift */,
+				F6B005D229BFC7100029C096 /* BusinessInboxViewController.swift */,
+				F6B005D429BFCD390029C096 /* BusinessProfileViewController.swift */,
 			);
 			path = DormShop;
 			sourceTree = "<group>";
@@ -418,12 +454,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6AB640929BFC51A0042DD67 /* UploadPostViewController.swift in Sources */,
 				F61214B4299263F900C94D1C /* PostCell.swift in Sources */,
+				F619CA0329B82C72007CEA3C /* InboxViewController.swift in Sources */,
 				F6F77B6329918A73009C966C /* LoginViewController.swift in Sources */,
 				F6F77B5F29918A73009C966C /* AppDelegate.swift in Sources */,
+				F68548BD29B6FB1400D7F6AC /* SearchViewController.swift in Sources */,
+				F619CA0529B85FCE007CEA3C /* InboxViewCell.swift in Sources */,
+				F68548BF29B6FE7100D7F6AC /* SearchResultCell.swift in Sources */,
 				F61214B029923B3100C94D1C /* ProfileViewController.swift in Sources */,
+				F69E57AB29BC79ED00E531D8 /* MenuTableViewController.swift in Sources */,
+				F65A6F5D29959EC300B2EF08 /* RoleViewController.swift in Sources */,
+				F6B005D329BFC7100029C096 /* BusinessInboxViewController.swift in Sources */,
 				F6F77B8F2991A3F3009C966C /* SignupViewController.swift in Sources */,
+				F69E57AD29BD93EB00E531D8 /* MenuCell.swift in Sources */,
+				F6AB640729BFC1DA0042DD67 /* CreateBusinessViewController.swift in Sources */,
+				F6B005D529BFCD390029C096 /* BusinessProfileViewController.swift in Sources */,
 				F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */,
+				F619CA0729BC2491007CEA3C /* ActivityViewCell.swift in Sources */,
 				F6F77B6129918A73009C966C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

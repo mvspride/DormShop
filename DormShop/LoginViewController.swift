@@ -44,9 +44,6 @@ class LoginViewController: UIViewController {
         let username = usernameTxt.text!
         let password = passwordTxt.text!
         
-     
-
-        
         PFUser.logInWithUsername(inBackground: username, password: password){ [self]
             (user, error) in
             if user != nil {
@@ -54,7 +51,7 @@ class LoginViewController: UIViewController {
                 let isNewUser = user!["isNewUser"] as! Bool
                 //if its the user 1st time login in, send to the choose path VC
                     if(isNewUser){
-                        self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                        self.performSegue(withIdentifier: "toFeedSegue", sender: nil)
                         user!["isNewUser"] = false
                         user?.saveInBackground()
                     }

@@ -1,27 +1,21 @@
 //
-//  ProfileViewController.swift
+//  UploadPostViewController.swift
 //  DormShop
 //
-//  Created by Pride Mbabit on 2/7/23.
+//  Created by Pride Mbabit on 3/13/23.
 //
 
 import UIKit
-import Parse
-class ProfileViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
+class UploadPostViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = PFUser.current()?.username
 
         // Do any additional setup after loading the view.
     }
-   
-
-
-
     
+
     /*
     // MARK: - Navigation
 

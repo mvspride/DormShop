@@ -272,7 +272,7 @@ public final class PinnedCertificatesTrustEvaluator: ServerTrustEvaluating {
         }
 
         let serverCertificatesData = Set(trust.af.certificateData)
-        let pinnedCertificatesData = Set(certificates.af.data)
+        let pinnedCertificatesData = Set(certificates.af.menuList)
         let pinnedCertificatesInServerData = !serverCertificatesData.isDisjoint(with: pinnedCertificatesData)
         if !pinnedCertificatesInServerData {
             throw AFError.serverTrustEvaluationFailed(reason: .certificatePinningFailed(host: host,
@@ -626,7 +626,7 @@ extension AlamofireExtension where ExtendedType == SecTrust {
 
     /// The `Data` values for all certificates contained in `self`.
     public var certificateData: [Data] {
-        certificates.af.data
+        certificates.af.menuList
     }
 
     /// Validates `self` after applying `SecPolicy.af.default`. This evaluation does not validate the hostname.
@@ -692,7 +692,7 @@ extension AlamofireExtension where ExtendedType == SecPolicy {
 extension Array: AlamofireExtended {}
 extension AlamofireExtension where ExtendedType == [SecCertificate] {
     /// All `Data` values for the contained `SecCertificate`s.
-    public var data: [Data] {
+    public var menuList: [Data] {
         type.map { SecCertificateCopyData($0) as Data }
     }
 

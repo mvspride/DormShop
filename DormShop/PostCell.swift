@@ -7,11 +7,50 @@
 
 import UIKit
 
-class PostCell: UITableViewCell {
+protocol PostCellDelegate: AnyObject{
+    func profileButton(with username: String, postIndex: Int)
+    func likeButton(with username: String, postIndex: Int)
+    func commentButton(with username: String, postIndex: Int)
+    func replyButton(with username: String, postIndex: Int)
 
+    
+}
+class PostCell: UITableViewCell {
+    
+    weak var delegate: PostCellDelegate?
+  
+    @IBAction func profileButton(_ sender: UIButton) {
+        delegate?.profileButton(with: usernameLabel.text!, postIndex: postIndex)
+
+    }
+    
+    @IBAction func likeButton(_ sender: UIButton) {
+        delegate?.likeButton(with: usernameLabel.text!, postIndex: postIndex)
+
+    }
+    
+    @IBAction func commentButton(_ sender: UIButton) {
+        delegate?.commentButton(with: usernameLabel.text!, postIndex: postIndex)
+
+    }
+    
+    @IBAction func replyButton(_ sender: UIButton) {
+        delegate?.replyButton(with: usernameLabel.text!, postIndex: postIndex)
+
+    }
+    
+    @IBOutlet weak var contentUIView: UIImageView!
+    
+    @IBOutlet weak var usernameLabel: UILabel!
+    
+    @IBOutlet weak var captionLabel: UILabel!
+    
+    var postIndex: Int = 0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        contentView.clipsToBounds = true
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
