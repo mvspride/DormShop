@@ -14,9 +14,6 @@ import AVFAudio
 
 class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-    @IBAction func searchButton(_ sender: UIButton) {
-        
-    }
     @IBOutlet var tableView: UITableView!
     
     var user = PFUser.current()

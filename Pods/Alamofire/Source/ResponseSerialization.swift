@@ -541,7 +541,7 @@ public final class DataResponseSerializer: ResponseSerializer {
 #if swift(>=5.5)
 extension ResponseSerializer where Self == DataResponseSerializer {
     /// Provides a default `DataResponseSerializer` instance.
-    public static var data: DataResponseSerializer { DataResponseSerializer() }
+    public static var menuList: DataResponseSerializer { DataResponseSerializer() }
 
     /// Creates a `DataResponseSerializer` using the provided parameters.
     ///
