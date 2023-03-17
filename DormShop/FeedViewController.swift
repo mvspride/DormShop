@@ -21,11 +21,14 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var businesses = [PFObject]()
     var selectedPost: PFObject!
     
+
+  
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         let query = PFQuery(className: "Posts")
         query.includeKey("description")
+        query.includeKey("author")
         query.limit = 20
         query.findObjectsInBackground{(posts,error) in
             if posts != nil {
@@ -41,16 +44,34 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        
+//        let tabBarHeight = self.tabBarController?.tabBar.frame.size.height ?? 0
+//
+//        tableView.rowHeight = UIScreen.main.bounds.height - tabBarHeight - 33
 
         // Do any additional setup after loading the view.
+        let business = PFObject(className: "Business")
+
+        let post1 = PFObject(className:"Posts")
+        post1["description"] = "1st post"
+        post1["author"] = business
+        
+        let post2 = PFObject(className:"Posts")
+        post2["description"] = "2nd post"
+        post2["author"] = business
+        
+        business["owner"] = PFUser.current()
+        business["username"] = "new Buss"
+        
+        post1.saveInBackground()
+        post2.saveInBackground()
+        business.saveInBackground()
+
+        
+
+
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        //removes top bar. simulates tiktok
-        //tableView?.frame = view.bounds
-    }
+    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
@@ -58,19 +79,25 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
-
         let post = posts[indexPath.row]
+        if let author = post.object(forKey: "author") as? PFObject {
+            let authorName = author.object(forKey: "username") as? String ?? "Unknown"
+            cell.usernameLabel.text = authorName
+            
+        }
         cell.captionLabel.text = post["description"] as? String
-        print(post["description"])
         cell.postIndex = indexPath.row
-        let imageFile = post["content"] as! PFFileObject
-        let urlString = imageFile.url!
+        let imageFile = post["content"] as? PFFileObject
+        let urlString = imageFile?.url! ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
         let url = URL(string: urlString)!
         cell.contentUIView.af.setImage(withURL: url)
         cell.delegate = self
         return cell
         
     }
+     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+           return tableView.frame.height
+       }
     
     
    
@@ -88,7 +115,7 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 extension FeedViewController: PostCellDelegate{
     func profileButton(with username: String, postIndex: Int){
         let post = posts[postIndex]
-        print(post["description"] as Any)
+        
     }
     func likeButton(with username: String, postIndex: Int){
         let post = posts[postIndex]
