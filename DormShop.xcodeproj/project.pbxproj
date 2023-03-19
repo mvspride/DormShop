@@ -10,6 +10,8 @@
 		24CBE4263C63B137BFAB9538 /* Pods_DormShop_DormShopUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25CBD85768FE9595A58E9071 /* Pods_DormShop_DormShopUITests.framework */; };
 		4A675EEA519545B233B85AFE /* Pods_DormShopTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C70C95D078886CD0DCFCD22 /* Pods_DormShopTests.framework */; };
 		7D55BC7D134EA83D0D8D0718 /* Pods_DormShop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAEFB6CEAB86D868A9CD22D /* Pods_DormShop.framework */; };
+		8FF2D2CE29C6E50C003C8EBF /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2D2CD29C6E50C003C8EBF /* OrdersViewController.swift */; };
+		8FF2D2D029C6EBA9003C8EBF /* OrdersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2D2CF29C6EBA9003C8EBF /* OrdersTableViewCell.swift */; };
 		F61214B029923B3100C94D1C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214AF29923B3100C94D1C /* ProfileViewController.swift */; };
 		F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B1299261B900C94D1C /* FeedViewController.swift */; };
 		F61214B4299263F900C94D1C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B3299263F900C94D1C /* PostCell.swift */; };
@@ -58,6 +60,8 @@
 		20D92F9E3118F266AC8CAEC2 /* Pods-DormShop-DormShopUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DormShop-DormShopUITests.release.xcconfig"; path = "Target Support Files/Pods-DormShop-DormShopUITests/Pods-DormShop-DormShopUITests.release.xcconfig"; sourceTree = "<group>"; };
 		25CBD85768FE9595A58E9071 /* Pods_DormShop_DormShopUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DormShop_DormShopUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C70C95D078886CD0DCFCD22 /* Pods_DormShopTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DormShopTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FF2D2CD29C6E50C003C8EBF /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
+		8FF2D2CF29C6EBA9003C8EBF /* OrdersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersTableViewCell.swift; sourceTree = "<group>"; };
 		AC0FB9CF78C06F906DADAA24 /* Pods-DormShopTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DormShopTests.debug.xcconfig"; path = "Target Support Files/Pods-DormShopTests/Pods-DormShopTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CF959851F38D4643598FA822 /* Pods-DormShop-DormShopUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DormShop-DormShopUITests.debug.xcconfig"; path = "Target Support Files/Pods-DormShop-DormShopUITests/Pods-DormShop-DormShopUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D2DEF289804B52272F0A3B73 /* Pods-DormShop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DormShop.debug.xcconfig"; path = "Target Support Files/Pods-DormShop/Pods-DormShop.debug.xcconfig"; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 				F6AB640829BFC51A0042DD67 /* UploadPostViewController.swift */,
 				F6B005D229BFC7100029C096 /* BusinessInboxViewController.swift */,
 				F6B005D429BFCD390029C096 /* BusinessProfileViewController.swift */,
+				8FF2D2CD29C6E50C003C8EBF /* OrdersViewController.swift */,
+				8FF2D2CF29C6EBA9003C8EBF /* OrdersTableViewCell.swift */,
 			);
 			path = DormShop;
 			sourceTree = "<group>";
@@ -469,6 +475,8 @@
 				F6F77B8F2991A3F3009C966C /* SignupViewController.swift in Sources */,
 				F69E57AD29BD93EB00E531D8 /* MenuCell.swift in Sources */,
 				F6AB640729BFC1DA0042DD67 /* CreateBusinessViewController.swift in Sources */,
+				8FF2D2CE29C6E50C003C8EBF /* OrdersViewController.swift in Sources */,
+				8FF2D2D029C6EBA9003C8EBF /* OrdersTableViewCell.swift in Sources */,
 				F6B005D529BFCD390029C096 /* BusinessProfileViewController.swift in Sources */,
 				F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */,
 				F619CA0729BC2491007CEA3C /* ActivityViewCell.swift in Sources */,
