@@ -20,20 +20,26 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var posts = [PFObject]()
     var businesses = [PFObject]()
     var selectedPost: PFObject!
-    
-
-  
+    var numOflikes = 0
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let query = PFQuery(className: "Posts")
-        query.includeKey("description")
-        query.includeKey("author")
-        query.limit = 20
-        query.findObjectsInBackground{(posts,error) in
+        let postQuery = PFQuery(className: "Posts")
+        postQuery.includeKey("description")
+        postQuery.includeKey("author")
+        postQuery.findObjectsInBackground{(posts,error) in
             if posts != nil {
                 self.posts = posts!
                 self.tableView.reloadData()
+                
+            }
+            // Do any additional setup after loading the view.
+        }
+        let likesQuery = PFQuery(className: "Likes")
+        likesQuery.findObjectsInBackground{(likes,error) in
+            if likes != nil {
+                self.numOflikes = likes?.count ?? 0
+                
             }
             // Do any additional setup after loading the view.
         }
@@ -66,9 +72,6 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         post2.saveInBackground()
         business.saveInBackground()
 
-        
-
-
     }
     
     
@@ -85,6 +88,7 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             cell.usernameLabel.text = authorName
             
         }
+        cell.numOfLikes.text = String(self.numOflikes)
         cell.captionLabel.text = post["description"] as? String
         cell.postIndex = indexPath.row
         let imageFile = post["content"] as? PFFileObject
@@ -110,20 +114,46 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         // Pass the selected object to the new view controller.
     }
     */
+    func commentView(){
+        
+    }
 
 }
 extension FeedViewController: PostCellDelegate{
     func profileButton(with username: String, postIndex: Int){
         let post = posts[postIndex]
         
+        
     }
     func likeButton(with username: String, postIndex: Int){
         let post = posts[postIndex]
-        print(post["description"] as Any)
-
+        let like = PFObject(className: "Likes")
+        let query = PFQuery(className: "Likes")
+        query.whereKey("post", contains: post.objectId)
+        query.whereKey("user", contains: PFUser.current()?.objectId)
+        query.findObjectsInBackground { (likes: [PFObject]?, error: Error?) in
+            if error == nil {
+                // Loop through the objects and delete them
+                if likes!.isEmpty{
+                    like["post"] = post
+                    like["user"] = PFUser.current()
+                    like.saveInBackground()
+                }
+                else{
+                    likes?[0].deleteInBackground()
+                }
+                
+            } else {
+                print("Error: \(error!) \(error!.localizedDescription)")
+            }
+        }
+        
+        
+        
     }
     func commentButton(with username: String, postIndex: Int){
         let post = posts[postIndex]
+        
         print(post["description"] as Any)
 
     }

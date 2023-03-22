@@ -26,13 +26,25 @@ class PostCell: UITableViewCell {
     
     @IBAction func likeButton(_ sender: UIButton) {
         delegate?.likeButton(with: usernameLabel.text!, postIndex: postIndex)
+        if likeButton.tintColor == UIColor.red{
+            likeButton.tintColor = UIColor.white
+        }
+        else{
+            likeButton.tintColor = UIColor.red
 
+        }
     }
+    
+    @IBOutlet weak var likeButton: UIButton!
+    
+    @IBOutlet weak var numOfLikes: UILabel!
     
     @IBAction func commentButton(_ sender: UIButton) {
         delegate?.commentButton(with: usernameLabel.text!, postIndex: postIndex)
 
     }
+    
+    @IBOutlet weak var numOfComments: UILabel!
     
     @IBAction func replyButton(_ sender: UIButton) {
         delegate?.replyButton(with: usernameLabel.text!, postIndex: postIndex)
