@@ -75,13 +75,12 @@ class InboxViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let profileImage = UIImage(named: "plane")?.scaledToFit(postView!.bounds.size)
             profileView?.setImage(profileImage, for: .normal)
             profileView = profileView?.roundImage(profileView!)
-            print("other one------------------------------")
 
             return activityCell
 
         }
         else{
-            print("hell0-----------------------------------------")
+            //show messages
             let cell = tableView.dequeueReusableCell(withIdentifier: "InboxViewCell") as! InboxViewCell
             let profileBttn = cell.profileBttn
             let image = UIImage(named: "plane")
