@@ -36,6 +36,7 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         followingBtn.tintColor = UIColor.gray
         
 
+
     }
     
     
@@ -91,6 +92,7 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
      
         
     }
+
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toCommentVC" {
