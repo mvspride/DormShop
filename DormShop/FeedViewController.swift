@@ -17,94 +17,144 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBOutlet var tableView: UITableView!
     
     var user = PFUser.current()
-    var posts = [PFObject]()
+    var campusPosts = [PFObject]()
+    var followingPosts = [PFObject]()
     var businesses = [PFObject]()
-    var selectedPost: PFObject!
-    var numOflikes = 0
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        let postQuery = PFQuery(className: "Posts")
-        postQuery.includeKey("description")
-        postQuery.includeKey("author")
-        postQuery.findObjectsInBackground{(posts,error) in
-            if posts != nil {
-                self.posts = posts!
-                self.tableView.reloadData()
-                
-            }
-            // Do any additional setup after loading the view.
-        }
-        let likesQuery = PFQuery(className: "Likes")
-        likesQuery.findObjectsInBackground{(likes,error) in
-            if likes != nil {
-                self.numOflikes = likes?.count ?? 0
-                
-            }
-            // Do any additional setup after loading the view.
-        }
-        
-    }
+    var currentPost: PFObject!
+    var currentPostComments = [PFObject]()
+    var currentPostLikes = 0
+    @IBOutlet weak var followingBtn: UIButton!
     
+    @IBOutlet weak var campusBtnn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-//        let tabBarHeight = self.tabBarController?.tabBar.frame.size.height ?? 0
-//
-//        tableView.rowHeight = UIScreen.main.bounds.height - tabBarHeight - 33
+        //display campus posts
+        queryCampusPost()
+        //set "Following" bttn to gray
+        followingBtn.tintColor = UIColor.gray
+        
 
-        // Do any additional setup after loading the view.
-//        let business = PFObject(className: "Business")
-//
-//        let post1 = PFObject(className:"Posts")
-//        post1["description"] = "1st post"
-//        post1["author"] = business
-//
-//        let post2 = PFObject(className:"Posts")
-//        post2["description"] = "2nd post"
-//        post2["author"] = business
-//
-//        business["owner"] = PFUser.current()
-//        business["username"] = "new Buss"
-//        business["location"] = "Ville Building 1"
-//        business["Rating"] = "4.8"
-//
-//        post1.saveInBackground()
-//        post2.saveInBackground()
-//        business.saveInBackground()
 
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //set navBar to invisible so that posts reaches the very top of the screen view
+        self.navigationController?.navigationBar.isHidden = true
+        
+
+        
+    }
+    @IBAction func queryCampusPost(){
+        campusBtnn.tintColor = UIColor.white
+        followingBtn.tintColor = UIColor.gray
+                let campusPostQuery = PFQuery(className: "Posts")
+                campusPostQuery.addAscendingOrder("createdAt")
+                campusPostQuery.findObjectsInBackground{(posts,error) in
+                    if posts != nil {
+                        self.campusPosts = posts!
+                        self.tableView.reloadData()
+                    }
+                }
+    
+
+        
+    }
+    @IBAction func queryFollowingPost(){
+        campusBtnn.tintColor = UIColor.gray
+        followingBtn.tintColor = UIColor.white
+        var businessesFollowingIds = [String]()
+        let userFollowingsQuery = PFQuery(className: "Following")
+        userFollowingsQuery.whereKey("userId", contains: user?.objectId)
+        userFollowingsQuery.findObjectsInBackground{(followings,error) in
+            if followings != nil {
+                for following in followings!{
+                    let businessId = following["businessId"] as? String
+                    businessesFollowingIds.append(businessId!)
+                }
+                
+            }
+            let followingPostQuery = PFQuery(className: "Posts")
+            followingPostQuery.addAscendingOrder("createdAt")
+            followingPostQuery.whereKey("BusinessId", containedIn: businessesFollowingIds)
+            followingPostQuery.findObjectsInBackground{(posts,error) in
+                if posts != nil {
+                    self.campusPosts = posts!
+                    print(posts)
+                    self.tableView.reloadData()
+                }
+            }
+        }
+
+     
+        
+    }
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toCommentVC" {
+            let destinationVC = segue.destination as! CommentViewController
+            destinationVC.currentPost = self.currentPost
+        }
+    }
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        return campusPosts.count
     }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+          return tableView.frame.height
+      }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
-        let post = posts[indexPath.row]
-        if let author = post.object(forKey: "author") as? PFObject {
-            let authorName = author.object(forKey: "username") as? String ?? "Unknown"
-            cell.usernameLabel.text = authorName
-            
-        }
-        cell.numOfLikes.text = String(self.numOflikes)
+        let post = campusPosts[indexPath.row]
+
+        
+        cell.usernameLabel.text = post["BusinessName"] as? String
         cell.captionLabel.text = post["description"] as? String
         cell.postIndex = indexPath.row
+        var numOfLikes = post["numOfLikes"] as? Int
+        var numOfComments = post["numOfComments"] as? Int
+        cell.numOfLikes.text = String(numOfLikes!)
+        cell.numOfComments.text = String(numOfComments!)
         let imageFile = post["content"] as? PFFileObject
         let urlString = imageFile?.url! ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
         let url = URL(string: urlString)!
         cell.contentUIView.af.setImage(withURL: url)
         cell.delegate = self
+        
         return cell
         
     }
-     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           return tableView.frame.height
-       }
-    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let visibleRect = CGRect(origin: tableView.contentOffset, size: tableView.bounds.size)
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+
+        if let visibleIndexPath = tableView.indexPathForRow(at: visiblePoint) {
+            // Determine which cell is currently visible
+            let visibleCell = tableView.cellForRow(at: visibleIndexPath)
+            // Do something with the visible cell
+
+        }
+    }
+
+    func commentsQuery(currentPost: PFObject) -> Int{
+        let commentsQuery = PFQuery(className: "Comments")
+        commentsQuery.whereKey("post", contains: currentPost.objectId)
+        commentsQuery.findObjectsInBackground { (comments: [PFObject]?, error: Error?) in
+            if error == nil {
+                self.currentPostComments = comments!
+            } else {
+                print("Error: \(error!) \(error!.localizedDescription)")
+            }
+            
+        }
+        return currentPostComments.count
+    }
+   
     
    
     /*
@@ -116,33 +166,48 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         // Pass the selected object to the new view controller.
     }
     */
-    func commentView(){
-        
-    }
 
 }
 extension FeedViewController: PostCellDelegate{
     func profileButton(with username: String, postIndex: Int){
-        let post = posts[postIndex]
+        currentPost = campusPosts[postIndex]
         
         
     }
-    func likeButton(with username: String, postIndex: Int){
-        let post = posts[postIndex]
+    func likeButton(with username: String, postIndex: Int,likeButton: UIButton){
+        self.currentPost = campusPosts[postIndex]
         let like = PFObject(className: "Likes")
         let query = PFQuery(className: "Likes")
-        query.whereKey("post", contains: post.objectId)
+        query.whereKey("post", contains: currentPost.objectId)
         query.whereKey("user", contains: PFUser.current()?.objectId)
         query.findObjectsInBackground { (likes: [PFObject]?, error: Error?) in
             if error == nil {
-                // Loop through the objects and delete them
                 if likes!.isEmpty{
-                    like["post"] = post
+                    like["post"] = self.currentPost
                     like["user"] = PFUser.current()
+                    self.currentPost["numOfLikes"] = 1 + (self.currentPost["numOfLikes"] as! Int)
+                    self.currentPost.saveInBackground()
                     like.saveInBackground()
+                    self.tableView.reloadData()
+
+                    likeButton.tintColor = UIColor.red
+                    
                 }
                 else{
-                    likes?[0].deleteInBackground()
+                    likes?[0].deleteInBackground { (success: Bool, error: Error?) in
+                              if let error = error {
+                                  // Handle any errors that occurred while deleting
+                                  print("Error deleting object: \(error.localizedDescription)")
+                              } else {
+                                  // Object was deleted successfully
+                                  print("Object deleted")
+                                  self.currentPost["numOfLikes"] = (self.currentPost["numOfLikes"] as! Int) - 1
+                                  self.currentPost.saveInBackground()
+                                  self.tableView.reloadData()
+                                  likeButton.tintColor = UIColor.white
+                              }
+                          }
+                    
                 }
                 
             } else {
@@ -150,18 +215,19 @@ extension FeedViewController: PostCellDelegate{
             }
         }
         
-        
-        
+    
     }
     func commentButton(with username: String, postIndex: Int){
-        let post = posts[postIndex]
+        self.currentPost = campusPosts[postIndex]
         
-        print(post["description"] as Any)
+
+        // triggers the segue to the Comment View Controller
+        performSegue(withIdentifier: "toCommentVC", sender: self)
 
     }
     func replyButton(with username: String, postIndex: Int){
-        let post = posts[postIndex]
-        print(post["description"] as Any)
+        self.currentPost = campusPosts[postIndex]
+        print(currentPost["description"] as Any)
 
     }
     

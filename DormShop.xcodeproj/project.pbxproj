@@ -17,9 +17,13 @@
 		F619CA0529B85FCE007CEA3C /* InboxViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619CA0429B85FCE007CEA3C /* InboxViewCell.swift */; };
 		F619CA0729BC2491007CEA3C /* ActivityViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619CA0629BC2491007CEA3C /* ActivityViewCell.swift */; };
 		F65A6F5D29959EC300B2EF08 /* RoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65A6F5C29959EC300B2EF08 /* RoleViewController.swift */; };
+		F674625129CFD137004CB320 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674625029CFD137004CB320 /* ProfileCell.swift */; };
+		F674625329CFD14D004CB320 /* ProfileBttnsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674625229CFD14D004CB320 /* ProfileBttnsCell.swift */; };
+		F674625529CFD164004CB320 /* ProfileItemsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674625429CFD164004CB320 /* ProfileItemsCell.swift */; };
 		F68548BD29B6FB1400D7F6AC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68548BC29B6FB1400D7F6AC /* SearchViewController.swift */; };
 		F68548BF29B6FE7100D7F6AC /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68548BE29B6FE7100D7F6AC /* SearchResultCell.swift */; };
 		F6998DB429CB3ADC00603947 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6998DB329CB3ADC00603947 /* CommentViewController.swift */; };
+		F6998DB629CB5B1500603947 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6998DB529CB5B1500603947 /* CommentCell.swift */; };
 		F69E57AB29BC79ED00E531D8 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69E57AA29BC79ED00E531D8 /* MenuTableViewController.swift */; };
 		F69E57AD29BD93EB00E531D8 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69E57AC29BD93EB00E531D8 /* MenuCell.swift */; };
 		F6AB640729BFC1DA0042DD67 /* CreateBusinessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AB640629BFC1DA0042DD67 /* CreateBusinessViewController.swift */; };
@@ -71,9 +75,13 @@
 		F619CA0429B85FCE007CEA3C /* InboxViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewCell.swift; sourceTree = "<group>"; };
 		F619CA0629BC2491007CEA3C /* ActivityViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewCell.swift; sourceTree = "<group>"; };
 		F65A6F5C29959EC300B2EF08 /* RoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleViewController.swift; sourceTree = "<group>"; };
+		F674625029CFD137004CB320 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		F674625229CFD14D004CB320 /* ProfileBttnsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBttnsCell.swift; sourceTree = "<group>"; };
+		F674625429CFD164004CB320 /* ProfileItemsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItemsCell.swift; sourceTree = "<group>"; };
 		F68548BC29B6FB1400D7F6AC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F68548BE29B6FE7100D7F6AC /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		F6998DB329CB3ADC00603947 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		F6998DB529CB5B1500603947 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		F69E57AA29BC79ED00E531D8 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		F69E57AC29BD93EB00E531D8 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		F6AB640629BFC1DA0042DD67 /* CreateBusinessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBusinessViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +195,10 @@
 				F6B005D229BFC7100029C096 /* BusinessInboxViewController.swift */,
 				F6B005D429BFCD390029C096 /* BusinessProfileViewController.swift */,
 				F6998DB329CB3ADC00603947 /* CommentViewController.swift */,
+				F6998DB529CB5B1500603947 /* CommentCell.swift */,
+				F674625029CFD137004CB320 /* ProfileCell.swift */,
+				F674625229CFD14D004CB320 /* ProfileBttnsCell.swift */,
+				F674625429CFD164004CB320 /* ProfileItemsCell.swift */,
 			);
 			path = DormShop;
 			sourceTree = "<group>";
@@ -460,6 +472,7 @@
 				F6998DB429CB3ADC00603947 /* CommentViewController.swift in Sources */,
 				F6AB640929BFC51A0042DD67 /* UploadPostViewController.swift in Sources */,
 				F61214B4299263F900C94D1C /* PostCell.swift in Sources */,
+				F674625129CFD137004CB320 /* ProfileCell.swift in Sources */,
 				F619CA0329B82C72007CEA3C /* InboxViewController.swift in Sources */,
 				F6F77B6329918A73009C966C /* LoginViewController.swift in Sources */,
 				F6F77B5F29918A73009C966C /* AppDelegate.swift in Sources */,
@@ -476,7 +489,10 @@
 				F6B005D529BFCD390029C096 /* BusinessProfileViewController.swift in Sources */,
 				F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */,
 				F619CA0729BC2491007CEA3C /* ActivityViewCell.swift in Sources */,
+				F674625529CFD164004CB320 /* ProfileItemsCell.swift in Sources */,
+				F674625329CFD14D004CB320 /* ProfileBttnsCell.swift in Sources */,
 				F6F77B6129918A73009C966C /* SceneDelegate.swift in Sources */,
+				F6998DB629CB5B1500603947 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
