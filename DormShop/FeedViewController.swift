@@ -55,22 +55,24 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 //        tableView.rowHeight = UIScreen.main.bounds.height - tabBarHeight - 33
 
         // Do any additional setup after loading the view.
-        let business = PFObject(className: "Business")
-
-        let post1 = PFObject(className:"Posts")
-        post1["description"] = "1st post"
-        post1["author"] = business
-        
-        let post2 = PFObject(className:"Posts")
-        post2["description"] = "2nd post"
-        post2["author"] = business
-        
-        business["owner"] = PFUser.current()
-        business["username"] = "new Buss"
-        
-        post1.saveInBackground()
-        post2.saveInBackground()
-        business.saveInBackground()
+//        let business = PFObject(className: "Business")
+//
+//        let post1 = PFObject(className:"Posts")
+//        post1["description"] = "1st post"
+//        post1["author"] = business
+//
+//        let post2 = PFObject(className:"Posts")
+//        post2["description"] = "2nd post"
+//        post2["author"] = business
+//
+//        business["owner"] = PFUser.current()
+//        business["username"] = "new Buss"
+//        business["location"] = "Ville Building 1"
+//        business["Rating"] = "4.8"
+//
+//        post1.saveInBackground()
+//        post2.saveInBackground()
+//        business.saveInBackground()
 
     }
     

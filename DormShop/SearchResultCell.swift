@@ -8,12 +8,13 @@
 import UIKit
 
 class SearchResultCell: UITableViewCell {
-
-    @IBOutlet weak var username: UILabel!
-    
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet var inventoryScrollView: UIScrollView!
     
+    
+    @IBOutlet weak var BusinessName: UILabel!
+    @IBOutlet weak var BusinessLocation: UILabel!
+    @IBOutlet weak var BusinessRating: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
