@@ -12,12 +12,24 @@ class CreateBusinessViewController: UIViewController {
 
     @IBOutlet weak var businessNameField: UITextField!
     
+    @IBOutlet weak var businessDescription: UITextField!
+    
+    @IBOutlet weak var businessCategory: UITextField!
+    
+    @IBOutlet weak var businessLocation: UITextField!
+    
     var businesses = [PFObject]()
+    
+    var currentUser = PFUser.current()
     
     @IBAction func createBusinessBttn(_ sender: UIButton) {
         let business = PFObject(className:"Business")
         business["username"] = businessNameField.text
         business["owner"] = PFUser.current()
+        business["description"] = businessDescription.text
+        business["category"] = businessCategory.text
+        business["location"] = businessLocation.text
+        business["Rating"] = "0.0"
         business.saveInBackground { (success, error) in
             if (success) {
                 print("Object saved successfully.")
@@ -36,8 +48,12 @@ class CreateBusinessViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+// Add tap gesture recognizer to dismiss keyboard
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    @objc override func dismissKeyboard() {
+        view.endEditing(true)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

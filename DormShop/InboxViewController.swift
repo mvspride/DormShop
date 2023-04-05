@@ -25,7 +25,7 @@ class InboxViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        10
     }
 //    func numberOfSections(in tableView: UITableView) -> Int {
 //        return sectionTitles.count
