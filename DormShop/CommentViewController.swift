@@ -29,7 +29,8 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         currentPost!["numOfComments"] =  (currentPost["numOfComments"] as! Int) + 1
         comment.saveInBackground()
         addCommentField.text = ""
-        viewDidAppear(true)
+        //viewDidAppear(true)
+        self.commentTable.reloadData()
     }
     
     
@@ -45,8 +46,6 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
 
             }
         }
-        self.navigationController?.navigationBar.isHidden = false
-        
     }
     override func viewDidLoad() {
         super.viewDidLoad()

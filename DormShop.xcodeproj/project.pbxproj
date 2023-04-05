@@ -20,6 +20,7 @@
 		F674625129CFD137004CB320 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674625029CFD137004CB320 /* ProfileCell.swift */; };
 		F674625329CFD14D004CB320 /* ProfileBttnsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674625229CFD14D004CB320 /* ProfileBttnsCell.swift */; };
 		F674625529CFD164004CB320 /* ProfileItemsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674625429CFD164004CB320 /* ProfileItemsCell.swift */; };
+		F674625729D4E307004CB320 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674625629D4E307004CB320 /* TabBarController.swift */; };
 		F68548BD29B6FB1400D7F6AC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68548BC29B6FB1400D7F6AC /* SearchViewController.swift */; };
 		F68548BF29B6FE7100D7F6AC /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68548BE29B6FE7100D7F6AC /* SearchResultCell.swift */; };
 		F6998DB429CB3ADC00603947 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6998DB329CB3ADC00603947 /* CommentViewController.swift */; };
@@ -78,6 +79,7 @@
 		F674625029CFD137004CB320 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		F674625229CFD14D004CB320 /* ProfileBttnsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBttnsCell.swift; sourceTree = "<group>"; };
 		F674625429CFD164004CB320 /* ProfileItemsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItemsCell.swift; sourceTree = "<group>"; };
+		F674625629D4E307004CB320 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		F68548BC29B6FB1400D7F6AC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F68548BE29B6FE7100D7F6AC /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		F6998DB329CB3ADC00603947 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				F674625029CFD137004CB320 /* ProfileCell.swift */,
 				F674625229CFD14D004CB320 /* ProfileBttnsCell.swift */,
 				F674625429CFD164004CB320 /* ProfileItemsCell.swift */,
+				F674625629D4E307004CB320 /* TabBarController.swift */,
 			);
 			path = DormShop;
 			sourceTree = "<group>";
@@ -487,6 +490,7 @@
 				F69E57AD29BD93EB00E531D8 /* MenuCell.swift in Sources */,
 				F6AB640729BFC1DA0042DD67 /* CreateBusinessViewController.swift in Sources */,
 				F6B005D529BFCD390029C096 /* BusinessProfileViewController.swift in Sources */,
+				F674625729D4E307004CB320 /* TabBarController.swift in Sources */,
 				F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */,
 				F619CA0729BC2491007CEA3C /* ActivityViewCell.swift in Sources */,
 				F674625529CFD164004CB320 /* ProfileItemsCell.swift in Sources */,
@@ -684,7 +688,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pride.DormShopp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pride.DormShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -714,7 +718,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pride.DormShopp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pride.DormShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

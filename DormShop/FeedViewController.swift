@@ -15,6 +15,9 @@ import AVFAudio
 class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet var tableView: UITableView!
+    var spinner = UIActivityIndicatorView()
+    let refreshControl = UIRefreshControl()
+  
     
     var user = PFUser.current()
     var campusPosts = [PFObject]()
@@ -23,40 +26,87 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var currentPost: PFObject!
     var currentPostComments = [PFObject]()
     var currentPostLikes = 0
-    @IBOutlet weak var followingBtn: UIButton!
-    
-    @IBOutlet weak var campusBtnn: UIButton!
+    let followingBttn = UIButton(type: .system)
+    let campusBttn = UIButton(type: .system)
+
+    func setNavBarBttns(){
+        followingBttn.setTitle("Following", for: .normal)
+        followingBttn.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        followingBttn.addTarget(self, action: #selector(queryFollowingPost), for: .touchUpInside)
+
+        campusBttn.setTitle("Campus", for: .normal)
+        campusBttn.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        campusBttn.addTarget(self, action: #selector(queryCampusPost), for: .touchUpInside)
+        
+        let stackView = UIStackView(arrangedSubviews: [followingBttn, campusBttn])
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.alignment = .center
+        stackView.spacing = 30.0
+        stackView.frame = CGRect(x: 0, y: 0, width: 120, height: 40)
+        
+        let centerBarButton = UIBarButtonItem(customView: stackView)
+        navigationItem.titleView = stackView
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
+        // Make the navigation bar translucent
+        navigationController?.navigationBar.isTranslucent = true
+
+        // Set the navigation bar background image to UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+
+        // Hide the navigation bar's bottom border
+        navigationController?.navigationBar.shadowImage = UIImage()
+        setNavBarBttns()
+        spinnerF()
+        
+        refreshControl.addTarget(self, action: #selector(refreshTableView(_:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        refreshControl.tintColor = UIColor.red
+
         //display campus posts
         queryCampusPost()
-        //set "Following" bttn to gray
-        followingBtn.tintColor = UIColor.gray
-        
 
+
+    }
+    @objc func refreshTableView(_ sender: AnyObject) {
+         // Reload the table view data
+         tableView.reloadData()
+
+         // End the refreshing animation
+         refreshControl.endRefreshing()
+     }
+    func spinnerF(){
+        spinner.style = .large
+        spinner.color = .gray
+        spinner.center = view.center
+        view.addSubview(spinner)
+        spinner.startAnimating()
 
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //set navBar to invisible so that posts reaches the very top of the screen view
-        self.navigationController?.navigationBar.isHidden = true
-        
+        tableView.reloadData()
 
-        
     }
+    
     @IBAction func queryCampusPost(){
-        campusBtnn.tintColor = UIColor.white
-        followingBtn.tintColor = UIColor.gray
+        campusBttn.tintColor = UIColor.white
+        followingBttn.tintColor = UIColor.gray
                 let campusPostQuery = PFQuery(className: "Posts")
                 campusPostQuery.addAscendingOrder("createdAt")
                 campusPostQuery.findObjectsInBackground{(posts,error) in
                     if posts != nil {
                         self.campusPosts = posts!
                         self.tableView.reloadData()
+                        self.spinner.stopAnimating()
+                      
                     }
                 }
     
@@ -64,8 +114,8 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
     @IBAction func queryFollowingPost(){
-        campusBtnn.tintColor = UIColor.gray
-        followingBtn.tintColor = UIColor.white
+        campusBttn.tintColor = UIColor.gray
+        followingBttn.tintColor = UIColor.white
         var businessesFollowingIds = [String]()
         let userFollowingsQuery = PFQuery(className: "Following")
         userFollowingsQuery.whereKey("userId", contains: user?.objectId)
@@ -83,8 +133,9 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             followingPostQuery.findObjectsInBackground{(posts,error) in
                 if posts != nil {
                     self.campusPosts = posts!
-                    print(posts)
+                    self.spinner.stopAnimating()
                     self.tableView.reloadData()
+                    self.tableView.isHidden = false
                 }
             }
         }
@@ -116,8 +167,8 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         cell.usernameLabel.text = post["BusinessName"] as? String
         cell.captionLabel.text = post["description"] as? String
         cell.postIndex = indexPath.row
-        var numOfLikes = post["numOfLikes"] as? Int
-        var numOfComments = post["numOfComments"] as? Int
+        let numOfLikes = post["numOfLikes"] as? Int
+        let numOfComments = post["numOfComments"] as? Int
         cell.numOfLikes.text = String(numOfLikes!)
         cell.numOfComments.text = String(numOfComments!)
         let imageFile = post["content"] as? PFFileObject
@@ -219,8 +270,6 @@ extension FeedViewController: PostCellDelegate{
     }
     func commentButton(with username: String, postIndex: Int){
         self.currentPost = campusPosts[postIndex]
-        
-
         // triggers the segue to the Comment View Controller
         performSegue(withIdentifier: "toCommentVC", sender: self)
 
