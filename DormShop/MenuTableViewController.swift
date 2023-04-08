@@ -218,6 +218,7 @@ class MyClass {
             query.limit = 3
             query.findObjectsInBackground{(businesses,error) in
                 if businesses != nil {
+                    
                     let business = businesses![0] as? PFObject
                     self.currentUser = business ?? self.currentUser
                 }

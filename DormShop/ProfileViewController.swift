@@ -37,31 +37,15 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
            tabBarController.viewControllers = viewControllers
         
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         profileTableView.delegate = self
         profileTableView.dataSource = self
         let currentUser = MyClass.shared.getCurrentViewer()
+        
+        
 
-
-        // Create a custom view for the header
-//                let headerView = UIView(frame: CGRect(x: 0, y: 0, width: profileTableView.frame.width, height: 50))
-//                headerView.backgroundColor = .lightGray
-//
-//                // Create a button and add it to the header view
-//                let button1 = UIButton(type: .system)
-//                button1.setTitle("Button 1", for: .normal)
-//                button1.frame = CGRect(x: 20, y: 10, width: 80, height: 30)
-//                headerView.addSubview(button1)
-//
-//                // Create another button and add it to the header view
-//                let button2 = UIButton(type: .system)
-//                button2.setTitle("Button 2", for: .normal)
-//                button2.frame = CGRect(x: 120, y: 10, width: 80, height: 30)
-//                headerView.addSubview(button2)
-//
-//                // Set the header view as the table view's tableHeaderView
-//                profileTableView.tableHeaderView = headerView
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,21 +68,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if indexPath.row == 0{
-//            let profileCell = tableView.dequeueReusableCell(withIdentifier: "profileCell") as! ProfileCell
-//            profileCell.profiledescription.text = "hello this is my photography jawn"
-//            return profileCell
-//        }
-//        else if indexPath.row == 1{
-//            let bttnsCell = tableView.dequeueReusableCell(withIdentifier: "bttnsCell") as! ProfileBttnsCell
-//            return bttnsCell
-//        }
-//        else{
-//            let itemsCell = tableView.dequeueReusableCell(withIdentifier: "itemsCell") as! ProfileItemsCell
-//            itemsCell.itemName.text = "new lashes"
-//            return itemsCell
-//
-//        }
+
         let bttnsCell = tableView.dequeueReusableCell(withIdentifier: "bttnsCell") as! ProfileBttnsCell
                     return bttnsCell
 

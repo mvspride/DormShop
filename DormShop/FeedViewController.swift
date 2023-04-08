@@ -276,7 +276,7 @@ extension FeedViewController: PostCellDelegate{
     }
     func replyButton(with username: String, postIndex: Int){
         self.currentPost = campusPosts[postIndex]
-        print(currentPost["description"] as Any)
+    
 
     }
     
