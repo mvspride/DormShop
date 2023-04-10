@@ -18,13 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="loH-w4-lWp">
-                                <rect key="frame" x="53" y="267" width="286.66666666666669" height="34"/>
+                                <rect key="frame" x="53" y="267" width="284" height="34"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9yy-8V-FXf">
-                                <rect key="frame" x="53" y="366" width="286.66666666666669" height="34"/>
+                                <rect key="frame" x="53" y="366" width="284" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="nS9-Co-e2q"/>
                                 </constraints>
@@ -33,13 +33,13 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i49-lu-UqL">
-                                <rect key="frame" x="68.999999999999986" y="636.66666666666663" width="178.66666666666663" height="21"/>
+                                <rect key="frame" x="69" y="636.66666666666663" width="176" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wos-az-i8W">
-                                <rect key="frame" x="187" y="665.66666666666663" width="19" height="21.333333333333371"/>
+                                <rect key="frame" x="185.66666666666666" y="665.66666666666663" width="19" height="21.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -55,13 +55,13 @@
                                 <buttonConfiguration key="configuration" style="gray" title="Log in with Google"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3hG-yS-8Zj">
-                                <rect key="frame" x="53" y="412" width="286.66666666666669" height="20"/>
+                                <rect key="frame" x="53" y="412" width="284" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.32602844240000001" blue="0.25244206479999998" alpha="0.85343206500000002" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Stn-Se-DRk">
-                                <rect key="frame" x="75" y="493.66666666666669" width="250" height="35.000000000000057"/>
+                                <rect key="frame" x="75.000000000000014" y="493.66666666666669" width="247.33333333333337" height="35.000000000000057"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="eZb-Gw-MgW"/>
                                 </constraints>
@@ -72,7 +72,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ykT-Rh-Cfs">
-                                <rect key="frame" x="255.66666666666663" y="633" width="80" height="28"/>
+                                <rect key="frame" x="253" y="633" width="80" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="CqR-ec-0D3"/>
                                     <constraint firstAttribute="height" constant="28" id="xDL-Eg-8Dm"/>
@@ -1612,6 +1612,9 @@
                                 <rect key="frame" x="148" y="696" width="78" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Submit"/>
+                                <connections>
+                                    <action selector="BusinessFeedGalleryGenerate:" destination="OGe-yl-rFy" eventType="touchUpInside" id="wzJ-o4-DoN"/>
+                                </connections>
                             </button>
                             <textField hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K35-RY-nZg">
                                 <rect key="frame" x="16" y="608" width="345" height="34"/>

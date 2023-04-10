@@ -12,12 +12,12 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBOutlet weak var captionTextField: UITextField!
     @IBOutlet weak var priceTextField: UITextField!
-    
     @IBOutlet weak var imageView: UIImageView!
-    var currentUser =  PFUser.current()!
+    
+    var currentUser =  MyClass.shared.currentUser
     var businesses = [PFObject]()
     var filteredBusinesses = [PFObject]()
-    
+    var inventoryTrueFeedFalse = false
     
     
     override func viewDidLoad() {
@@ -30,6 +30,10 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         view.addGestureRecognizer(tapGesture)
     }
     
+    @objc override func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text?.starts(with: "-") ?? false {
@@ -40,10 +44,6 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-    override func dismissKeyboard() {
-        view.endEditing(true)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -81,6 +81,9 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         // Hide or show the label and text field based on the state of the toggle switch
         myLabel.isHidden = !sender.isOn
         myTextField.isHidden = !sender.isOn
+        
+        // Set feedTrueInventoryFalse to true if the switch is turned on
+        inventoryTrueFeedFalse = sender.isOn
     }
     
     @IBAction func takePicture(_ sender: UIButton) {
@@ -111,45 +114,45 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func queryCampusPost(){
-        let BusinessQuery = PFQuery(className: "Business")
+    @IBAction func BusinessFeedGalleryGenerate(_ sender: UIButton) {
         
-        BusinessQuery.findObjectsInBackground{(Businesses,error) in
-            if Businesses != nil {
-                
-            }
+        if inventoryTrueFeedFalse {
+            
+            let inventory = PFObject(className: "Inventory")
+            
+            inventory["BusinessId"] = currentUser.objectId
+            inventory["BusinessName"] = currentUser["username"]
+            inventory["description"] = captionTextField.text
+            inventory["price"] = priceTextField.text
+            
+            guard let imageData2 = imageView.image?.jpegData(compressionQuality: 0.5) else {
+                   return
+               }
+            
+            let imageFile2 = PFFileObject(name: "image.jpg", data: imageData2)
+            inventory["content"] = imageFile2
+            
+            inventory.saveInBackground()
+        }
+        else {
+            
+            let post = PFObject(className: "Posts")
+            
+            post["BusinessId"] = currentUser.objectId
+            post["BusinessName"] = currentUser["username"]
+            post["numOfComments"] = 0
+            post["numOfLikes"] = 0
+            post["description"] = captionTextField.text
+            
+            guard let imageData1 = imageView.image?.jpegData(compressionQuality: 0.5) else {
+                   return
+               }
+            
+            let imageFile1 = PFFileObject(name: "image.jpg", data: imageData1)
+            post["content"] = imageFile1
+            
+            post.saveInBackground()
+            
         }
     }
-    
-    //    @IBAction func BusinessFeedGalleryGenerate(_ sender: UIButton) {
-    //        let post = PFObject(className: "Posts")
-    //        post["BusinessId"] = PFUser.current()!
-    //        post["BusinessName"] = [PFUser.current()!]
-    //        post["numOfComments"] = 0
-    //        post["likedPosts"] = []
-    //
-    //        post.saveInBackground()
-    //
-    //            (success,error) in if success{
-    //                print("saved")
-    //            }else{
-    //                print("error!")
-    //            }
-    
-    //        let inventory = PFObject(className: "Inventory")
-    //        inventory["author"] = PFUser.current()!
-    //        inventory["following"] = [PFUser.current()!]
-    //        inventory["savedPosts"] = []
-    //        inventory["likedPosts"] = []
-    //
-    //        inventory.saveInBackground()
-    //
-    //            (success,error) in if success{
-    //                print("saved")
-    //            }else{
-    //                print("error!")
-//}
-    
-
-    
 }
