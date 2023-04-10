@@ -109,10 +109,9 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                       
                     }
                 }
-    
 
-        
     }
+    
     @IBAction func queryFollowingPost(){
         campusBttn.tintColor = UIColor.gray
         followingBttn.tintColor = UIColor.white
