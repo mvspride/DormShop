@@ -100,7 +100,7 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         campusBttn.tintColor = UIColor.white
         followingBttn.tintColor = UIColor.gray
                 let campusPostQuery = PFQuery(className: "Posts")
-                campusPostQuery.addAscendingOrder("createdAt")
+                campusPostQuery.addDescendingOrder("createdAt")
                 campusPostQuery.findObjectsInBackground{(posts,error) in
                     if posts != nil {
                         self.campusPosts = posts!
@@ -127,7 +127,7 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 
             }
             let followingPostQuery = PFQuery(className: "Posts")
-            followingPostQuery.addAscendingOrder("createdAt")
+            followingPostQuery.addDescendingOrder("createdAt")
             followingPostQuery.whereKey("BusinessId", containedIn: businessesFollowingIds)
             followingPostQuery.findObjectsInBackground{(posts,error) in
                 if posts != nil {
@@ -275,7 +275,7 @@ extension FeedViewController: PostCellDelegate{
     }
     func replyButton(with username: String, postIndex: Int){
         self.currentPost = campusPosts[postIndex]
-        print(currentPost["description"] as Any)
+    
 
     }
     
