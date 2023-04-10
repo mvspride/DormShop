@@ -614,7 +614,7 @@
                                     <constraint firstAttribute="height" constant="584" id="Xq2-HJ-mSd"/>
                                     <constraint firstAttribute="width" constant="390" id="bmc-kn-qYa"/>
                                 </constraints>
-
+                            <tableView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="300" id="JEg-mp-rks" customClass="SearchResultCell" customModule="DormShop" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="390" height="300"/>
