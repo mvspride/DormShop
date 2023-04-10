@@ -8,22 +8,28 @@
 import UIKit
 import Parse
 
-class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate {
+class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource {
 
     var user = PFUser.current()
     var businesses = [PFObject]()
     var filteredBusinesses = [PFObject]()
-    
+    var  tags = [String]()
     
     
     @IBOutlet weak var searchField: UITextField!
 
-    @IBAction func searchBttn(_ sender: UIButton) {
+    @IBAction func cancelBttn(_ sender: UIButton) {
         searchField.resignFirstResponder()
+        filteredBusinesses = businesses
+        searchResultTableView.reloadData()
     }
+    
+    @IBOutlet weak var categoryView: UICollectionView!
+    
     @IBOutlet var searchResultTableView: UITableView!
     
-
+    @IBOutlet weak var inventoryCollectionView: UICollectionView!
+    
     @IBAction func searchTextChangedd(_ sender: Any) {
         if searchField.text?.isEmpty == true {
                 filteredBusinesses = businesses
@@ -49,18 +55,50 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         view.endEditing(true)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        searchResultTableView.delegate = self
-        searchResultTableView.dataSource = self
-        // Set the view controller as the delegate of the search text field
-        searchField.delegate = self
-        let dismissKeyboardtapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-                view.addGestureRecognizer(dismissKeyboardtapGesture)
+    func loadTags(){
+        let tagQuery = PFQuery(className: "Category")
+        tagQuery.addDescendingOrder("timesUsed")
+        tagQuery.findObjectsInBackground{(tags,error) in
+            if tags != nil {
+                
+                for tag in tags ?? []{
+                    self.tags.append(tag["tagName"] as! String)
+                }
+                self.categoryView.reloadData()
+            }
+        }
+    }
+    func getBusinessWithTag(tagName: String){
+        let query = PFQuery(className: "Account_tag")
+        query.whereKey("category", equalTo: tagName)
+        query.findObjectsInBackground{(result,error) in
+            if result != nil {
+                self.filteredBusinesses.removeAll()
+                var businesIds = [String]()
+                for tag in result ?? []{
+                    let businessId = tag["businessId"] as! String
+                    businesIds.append(businessId)
+                    
+                }
+                self.getBusinessWithIds(businessIds: businesIds)
+            }
+            
+        }
+    }
+    func getBusinessWithIds(businessIds: [String]) {
+        let query = PFQuery(className: "Business")
+        query.whereKey("objectId", containedIn: businessIds)
+        query.findObjectsInBackground{(result,error) in
+            if result != nil {
+                self.filteredBusinesses = result!
+                self.searchResultTableView.reloadData()
+                print(result)
+            }
+            
+        }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    func loadBusinesses(){
         let BusinessQuery = PFQuery(className: "Business")
         BusinessQuery.whereKey("username", contains: searchField.text ?? "")
         BusinessQuery.findObjectsInBackground{(businesses,error) in
@@ -68,10 +106,34 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
                 self.businesses = businesses!
                 self.filteredBusinesses = self.businesses // set the filtered businesses to be the same as the initial businesses
                 self.searchResultTableView.reloadData()
-                
             }
         }
         
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchResultTableView.delegate = self
+        searchResultTableView.dataSource = self
+
+        categoryView.delegate = self
+        categoryView.dataSource = self
+       
+        searchField.delegate = self
+        
+        loadTags()
+        loadBusinesses()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        let category = PFObject(className: "Account_tag")
+//        category.setValue("photographer", forKey: "category")
+//        category.setObject(self.businesses[0], forKey: "business")
+//        category.setValue(self.businesses[0].objectId, forKey: "businessId")
+//        category.saveInBackground()
+    
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,6 +149,30 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         cell.BusinessRating.text = business["Rating"] as? String
         
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(filteredBusinesses[indexPath.row])
+    }
+    
+    
+     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+         return tags.count
+        }
+        
+     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryViewCell", for: indexPath) as! CategoryViewCell
+         cell.categoryName.text = self.tags[indexPath.row]
+         let categoryImg = cell.categoryImg.image = UIImage(named: "plane")
+        //cell.backgroundColor = UIColor.blue
+         
+            
+            return cell
+        }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let tagName = self.tags[indexPath.row]
+        getBusinessWithTag(tagName: tagName)
+        
     }
     
 

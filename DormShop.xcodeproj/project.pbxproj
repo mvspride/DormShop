@@ -13,9 +13,11 @@
 		F61214B029923B3100C94D1C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214AF29923B3100C94D1C /* ProfileViewController.swift */; };
 		F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B1299261B900C94D1C /* FeedViewController.swift */; };
 		F61214B4299263F900C94D1C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B3299263F900C94D1C /* PostCell.swift */; };
+		F61727C329E487DB00879886 /* InventoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61727C229E487DB00879886 /* InventoryViewCell.swift */; };
 		F619CA0329B82C72007CEA3C /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619CA0229B82C72007CEA3C /* InboxViewController.swift */; };
 		F619CA0529B85FCE007CEA3C /* InboxViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619CA0429B85FCE007CEA3C /* InboxViewCell.swift */; };
 		F619CA0729BC2491007CEA3C /* ActivityViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619CA0629BC2491007CEA3C /* ActivityViewCell.swift */; };
+		F61D687229DDF709002A20FC /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61D687129DDF709002A20FC /* CategoryViewCell.swift */; };
 		F65A6F5D29959EC300B2EF08 /* RoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65A6F5C29959EC300B2EF08 /* RoleViewController.swift */; };
 		F674625129CFD137004CB320 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674625029CFD137004CB320 /* ProfileCell.swift */; };
 		F674625329CFD14D004CB320 /* ProfileBttnsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674625229CFD14D004CB320 /* ProfileBttnsCell.swift */; };
@@ -72,9 +74,11 @@
 		F61214AF29923B3100C94D1C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F61214B1299261B900C94D1C /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		F61214B3299263F900C94D1C /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		F61727C229E487DB00879886 /* InventoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryViewCell.swift; sourceTree = "<group>"; };
 		F619CA0229B82C72007CEA3C /* InboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
 		F619CA0429B85FCE007CEA3C /* InboxViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewCell.swift; sourceTree = "<group>"; };
 		F619CA0629BC2491007CEA3C /* ActivityViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewCell.swift; sourceTree = "<group>"; };
+		F61D687129DDF709002A20FC /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		F65A6F5C29959EC300B2EF08 /* RoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleViewController.swift; sourceTree = "<group>"; };
 		F674625029CFD137004CB320 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		F674625229CFD14D004CB320 /* ProfileBttnsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBttnsCell.swift; sourceTree = "<group>"; };
@@ -202,6 +206,8 @@
 				F674625229CFD14D004CB320 /* ProfileBttnsCell.swift */,
 				F674625429CFD164004CB320 /* ProfileItemsCell.swift */,
 				F674625629D4E307004CB320 /* TabBarController.swift */,
+				F61D687129DDF709002A20FC /* CategoryViewCell.swift */,
+				F61727C229E487DB00879886 /* InventoryViewCell.swift */,
 			);
 			path = DormShop;
 			sourceTree = "<group>";
@@ -478,6 +484,7 @@
 				F674625129CFD137004CB320 /* ProfileCell.swift in Sources */,
 				F619CA0329B82C72007CEA3C /* InboxViewController.swift in Sources */,
 				F6F77B6329918A73009C966C /* LoginViewController.swift in Sources */,
+				F61D687229DDF709002A20FC /* CategoryViewCell.swift in Sources */,
 				F6F77B5F29918A73009C966C /* AppDelegate.swift in Sources */,
 				F68548BD29B6FB1400D7F6AC /* SearchViewController.swift in Sources */,
 				F619CA0529B85FCE007CEA3C /* InboxViewCell.swift in Sources */,
@@ -489,6 +496,7 @@
 				F6F77B8F2991A3F3009C966C /* SignupViewController.swift in Sources */,
 				F69E57AD29BD93EB00E531D8 /* MenuCell.swift in Sources */,
 				F6AB640729BFC1DA0042DD67 /* CreateBusinessViewController.swift in Sources */,
+				F61727C329E487DB00879886 /* InventoryViewCell.swift in Sources */,
 				F6B005D529BFCD390029C096 /* BusinessProfileViewController.swift in Sources */,
 				F674625729D4E307004CB320 /* TabBarController.swift in Sources */,
 				F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */,
@@ -688,7 +696,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pride.DormShop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pride.DormShopp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -718,7 +726,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pride.DormShop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pride.DormShopp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
