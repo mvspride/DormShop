@@ -7,17 +7,21 @@
 
 import UIKit
 
-class SearchResultCell: UITableViewCell {
+class SearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    
     @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet var inventoryScrollView: UIScrollView!
-    
-    
     @IBOutlet weak var BusinessName: UILabel!
     @IBOutlet weak var BusinessLocation: UILabel!
     @IBOutlet weak var BusinessRating: UILabel!
     
+    @IBOutlet weak var inventoryCollectionView: UICollectionView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        inventoryCollectionView.dataSource = self
+        inventoryCollectionView.delegate = self
         // Initialization code
     }
 
@@ -25,6 +29,16 @@ class SearchResultCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InventoryViewCell", for: indexPath) as! InventoryViewCell
+        cell.inventoryPrice.text = "$5"
+        cell.inventoryDscrp.text = "new lashes on sale"
+        return cell
     }
 
 }
