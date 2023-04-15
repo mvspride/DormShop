@@ -7,7 +7,7 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     
-    var currentUser =  MyClass.shared.currentUser
+    var currentUser =  MyClass.shared.getCurrentViewer()
     var businesses = [PFObject]()
     var filteredBusinesses = [PFObject]()
     var inventoryTrueFeedFalse = false
@@ -25,6 +25,12 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         view.addGestureRecognizer(tapGesture)
        
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        currentUser =  MyClass.shared.getCurrentViewer()
+
     }
     
     @objc override func dismissKeyboard() {
@@ -116,7 +122,6 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         if inventoryTrueFeedFalse {
             
             let inventory = PFObject(className: "Inventory")
-            
             inventory["BusinessId"] = currentUser.objectId
             inventory["BusinessName"] = currentUser["username"]
             inventory["description"] = captionTextField.text
@@ -128,7 +133,10 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
             
             let imageFile2 = PFFileObject(name: "image.jpg", data: imageData2)
             inventory["content"] = imageFile2
-            
+            print(currentUser.objectId)
+            print("Im here")
+            print("current user")
+            print(MyClass.shared.getCurrentViewer().objectId)
             inventory.saveInBackground()
         }
         else {
