@@ -124,6 +124,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         
         loadTags()
         loadBusinesses()
+        MyClass.shared.filteredBusinesses = businesses
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -134,24 +135,6 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
 //        category.setValue(self.businesses[0].objectId, forKey: "businessId")
 //        category.saveInBackground()
     
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredBusinesses.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell") as! SearchResultCell
-        
-        let business = filteredBusinesses[indexPath.row]
-        cell.BusinessName.text = business["username"] as? String
-        cell.BusinessLocation.text = business["location"] as? String
-        cell.BusinessRating.text = business["Rating"] as? String
-        
-        return cell
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(filteredBusinesses[indexPath.row])
     }
     
     
@@ -174,6 +157,25 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         getBusinessWithTag(tagName: tagName)
         
     }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredBusinesses.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell") as! SearchResultCell
+        let business = filteredBusinesses[indexPath.row]
+        cell.configure(with: business)
+        cell.awakeFromNib()
+        cell.BusinessName.text = business["username"] as? String
+        cell.BusinessLocation.text = business["location"] as? String
+        cell.BusinessRating.text = business["Rating"] as? String
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(filteredBusinesses[indexPath.row])
+    }
+    
     
 
     /*

@@ -166,7 +166,7 @@ class MenuTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     */
 
@@ -199,6 +199,7 @@ class MenuTableViewController: UITableViewController {
 class MyClass {
     static let shared = MyClass()
     var currentUser: PFObject =   PFUser.current()!
+    var filteredBusinesses = [PFObject]()
 
     func getCurrentViewer()-> PFObject{
         if isUser(currentViewer: currentUser){
