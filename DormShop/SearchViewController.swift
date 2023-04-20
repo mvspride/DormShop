@@ -92,7 +92,6 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
             if result != nil {
                 self.filteredBusinesses = result!
                 self.searchResultTableView.reloadData()
-                print(result)
             }
             
         }

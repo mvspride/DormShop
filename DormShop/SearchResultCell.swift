@@ -31,8 +31,7 @@ class SearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollectionV
     func configure(with currBusiness: PFObject ) {
         let businessId = currBusiness.objectId
         self.currInventory = queryInventory(businessId: businessId!)
-        print("=================----------------------")
-        print(self.currInventory)
+        
      }
     
     func queryInventory(businessId: String) -> [PFObject] {
@@ -63,9 +62,7 @@ class SearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InventoryViewCell", for: indexPath) as! InventoryViewCell
         let item = currInventory[indexPath.row]
-        print("------------------------------------")
-        print(currInventory.count)
-        print(item)
+        print("SearchResultCell------------------------------------")
         cell.inventoryPrice.text = item["price"] as? String
         cell.inventoryDscrp.text = item["description"] as? String
         let imageFile = item["content"] as? PFFileObject

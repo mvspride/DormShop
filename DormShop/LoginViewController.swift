@@ -34,7 +34,6 @@ class LoginViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
         loginErrorTxt.text = ""
 
-
         
     }
   
@@ -47,6 +46,7 @@ class LoginViewController: UIViewController {
         PFUser.logInWithUsername(inBackground: username, password: password){ [self]
             (user, error) in
             if user != nil {
+                print("logged in good")
                 UserDefaults.standard.set(true, forKey: "userLoggedIn")
                 let isNewUser = user!["isNewUser"] as! Bool
                 //if its the user 1st time login in, send to the choose path VC

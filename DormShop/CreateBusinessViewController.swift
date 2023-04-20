@@ -30,6 +30,7 @@ class CreateBusinessViewController: UIViewController {
         business["category"] = businessCategory.text
         business["location"] = businessLocation.text
         business["Rating"] = "0.0"
+        currentUser!["currentBusinessId"] = business.objectId
         business.saveInBackground { (success, error) in
             if (success) {
                 print("Object saved successfully.")

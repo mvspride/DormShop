@@ -82,12 +82,14 @@ class MenuTableViewController: UITableViewController {
 
   
 
-    
+    func getTabBar()-> UITabBarController{
+        return self.tabBarController!
+    }
     func switchAccounts(){
         let alertController = UIAlertController(title: "Switch account", message: "", preferredStyle: .actionSheet)
         //list user current account
         let currentAccount = UIAlertAction(title: PFUser.current()?.username, style: .default) { (action) in
-            MyClass.shared.currentUser = PFUser.current()!
+            MyClass.shared.currentRoleId = self.currentUser.objectId!
         }
         alertController.addAction(currentAccount)
         
@@ -95,9 +97,11 @@ class MenuTableViewController: UITableViewController {
         for business in userBusinesses{
             let account = UIAlertAction(title: business["username"] as? String, style: .default) { (action) in
                 self.currentUser = business
-                MyClass.shared.currentUser = business
+                MyClass.shared.setCurrentRoleId(role: business.objectId!)
+                PFUser.current()!["currentBusinessId"] = business.objectId
                 self.tabBarController?.viewControllers![0].tabBarItem = nil
                 self.tabBarController?.viewControllers![1].tabBarItem = nil
+                
 
             }
           
@@ -127,6 +131,7 @@ class MenuTableViewController: UITableViewController {
                 }
                 
                 let logOut = UIAlertAction(title: "Log out", style: .default) { (action) in
+                    //MyClass.shared.setCurrentRole()
                     PFUser.logOutInBackground()
                     let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
                     self.present(loginVC, animated: true, completion: nil)
@@ -198,41 +203,67 @@ class MenuTableViewController: UITableViewController {
 }
 class MyClass {
     static let shared = MyClass()
-    var currentUser: PFObject =   PFUser.current()!
+    var currentRoleId: String = "EbL0nFHS71"//"oaoPyYYD3v"//PFUser.current()?.object(forKey: "currentBusinessId") as! String
+    var currentBusiness : PFObject!
     var filteredBusinesses = [PFObject]()
+    var queryCompleted = false
 
-    func getCurrentViewer()-> PFObject{
-        if isUser(currentViewer: currentUser){
-            let query = PFUser.query()!
-            query.whereKey("objectId", contains: self.currentUser.objectId)
-            query.limit = 3
-            query.findObjectsInBackground{(users,error) in
-                if users != nil {
-                    let user = users![0] as? PFUser
-                    self.currentUser = user ?? self.currentUser
-                }
-            }
-            //print(currentUser)
-        }else{
-            let query = PFQuery(className: "Business")
-            query.whereKey("objectId", contains: self.currentUser.objectId)
-            query.limit = 3
-            query.findObjectsInBackground{(businesses,error) in
-                if businesses != nil {
-                    let business = businesses![0] as? PFObject
-                    self.currentUser = business ?? self.currentUser
-                }
-            }
-          
-        }
-        return currentUser
-    }
     
-    //returns true if currentViewer is a user. returns false if currentViewer is a business
-    func isUser(currentViewer: PFObject) -> Bool{
-        if currentViewer.isMember(of: PFUser.self){
+    func isUser() -> Bool{
+        if PFUser.current()?.objectId == currentRoleId{
             return true
         }
         return false
     }
+
+    
+    func getCurrentRoleId() -> String{
+        return currentRoleId
+    }
+    
+    func setCurrentRoleId(role: String){
+        self.currentRoleId = role
+        setCurrentBusiness(role: role)
+      
+
+    }
+    func setCurrentBusiness(role :String ){
+    
+        let query = PFQuery(className: "Business")
+        query.whereKey("objectId", contains: role)
+        query.limit = 3
+        query.findObjectsInBackground{(businesses,error) in
+            if businesses != nil {
+                self.queryCompleted = true
+                let business = businesses![0] as? PFObject
+                self.currentBusiness = business
+                print(self.currentBusiness)
+                print("the world")
+            }
+        }
+    }
+    func getCurrentBusiness()-> PFObject{
+        return self.currentBusiness
+    }
+    
+        
+    func getCurrentViewer()-> PFObject{
+        if isUser(){
+            return PFUser.current()!
+        }
+        else{
+            //var MenuVC = MenuTableViewController.self
+            //self.tabBarController?.viewControllers![0].tabBarItem = nil
+            //self.tabBarController?.viewControllers![1].tabBarItem = nil
+            setCurrentBusiness(role: currentRoleId)
+            while !queryCompleted {
+                RunLoop.current.run(mode: .default, before: .distantFuture)
+            }
+            return getCurrentBusiness()
+        }
+    }
+
+
+    //returns true if currentViewer is a user. returns false if currentViewer is a business
+
 }

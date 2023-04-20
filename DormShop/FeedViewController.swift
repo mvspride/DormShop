@@ -99,16 +99,16 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBAction func queryCampusPost(){
         campusBttn.tintColor = UIColor.white
         followingBttn.tintColor = UIColor.gray
-                let campusPostQuery = PFQuery(className: "Posts")
-                campusPostQuery.addDescendingOrder("createdAt")
-                campusPostQuery.findObjectsInBackground{(posts,error) in
-                    if posts != nil {
-                        self.campusPosts = posts!
-                        self.tableView.reloadData()
-                        self.spinner.stopAnimating()
-                      
-                    }
-                }
+        let campusPostQuery = PFQuery(className: "Posts")
+        campusPostQuery.addDescendingOrder("createdAt")
+        campusPostQuery.findObjectsInBackground{(posts,error) in
+            if posts != nil {
+                self.campusPosts = posts!
+                self.tableView.reloadData()
+                self.spinner.stopAnimating()
+              
+            }
+        }
 
     }
     
