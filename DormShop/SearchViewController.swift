@@ -15,6 +15,8 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     var filteredBusinesses = [PFObject]()
     var  tags = [String]()
     
+    var currentItemId: String = ""
+    
     
     @IBOutlet weak var searchField: UITextField!
 
@@ -164,11 +166,18 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell") as! SearchResultCell
         let business = filteredBusinesses[indexPath.row]
-        cell.configure(with: business)
+        cell.configure(with: business, viewController: self)
         cell.awakeFromNib()
         cell.BusinessName.text = business["username"] as? String
         cell.BusinessLocation.text = business["location"] as? String
         cell.BusinessRating.text = business["Rating"] as? String
+        
+        cell.didSelectItem = { [weak self] itemId in
+            guard let self = self else { return }
+            // Handle the selected item id here...
+            print("Selected ItemId: \(itemId)")
+            self.currentItemId = itemId
+        }
         
         return cell
     }
@@ -176,8 +185,20 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         print(filteredBusinesses[indexPath.row])
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "popOver"{
 
+            let createOrderController = segue.destination as! CreateOrderViewController
+            // createOrderController
+            print("Search Result Controller - ItemId")
+            print(currentItemId)
+
+            createOrderController.currentItemId = self.currentItemId
+        }
+        
+    }
+
+     
     /*
     // MARK: - Navigation
 

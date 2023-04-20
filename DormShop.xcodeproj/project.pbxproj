@@ -11,6 +11,9 @@
 		4A675EEA519545B233B85AFE /* Pods_DormShopTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C70C95D078886CD0DCFCD22 /* Pods_DormShopTests.framework */; };
 		7D55BC7D134EA83D0D8D0718 /* Pods_DormShop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAEFB6CEAB86D868A9CD22D /* Pods_DormShop.framework */; };
 		8F921D2029E58AF90016CBE3 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F921D1F29E58AF90016CBE3 /* ProfileCollectionViewCell.swift */; };
+		8F921D2229EB4AA00016CBE3 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F921D2129EB4AA00016CBE3 /* OrdersViewController.swift */; };
+		8F921D2429EB4B310016CBE3 /* OrdersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F921D2329EB4B310016CBE3 /* OrdersTableViewCell.swift */; };
+		8F921D2629EB61000016CBE3 /* CreateOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F921D2529EB61000016CBE3 /* CreateOrderViewController.swift */; };
 		F61214B029923B3100C94D1C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214AF29923B3100C94D1C /* ProfileViewController.swift */; };
 		F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B1299261B900C94D1C /* FeedViewController.swift */; };
 		F61214B4299263F900C94D1C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61214B3299263F900C94D1C /* PostCell.swift */; };
@@ -68,6 +71,9 @@
 		25CBD85768FE9595A58E9071 /* Pods_DormShop_DormShopUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DormShop_DormShopUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C70C95D078886CD0DCFCD22 /* Pods_DormShopTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DormShopTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F921D1F29E58AF90016CBE3 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		8F921D2129EB4AA00016CBE3 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
+		8F921D2329EB4B310016CBE3 /* OrdersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersTableViewCell.swift; sourceTree = "<group>"; };
+		8F921D2529EB61000016CBE3 /* CreateOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderViewController.swift; sourceTree = "<group>"; };
 		AC0FB9CF78C06F906DADAA24 /* Pods-DormShopTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DormShopTests.debug.xcconfig"; path = "Target Support Files/Pods-DormShopTests/Pods-DormShopTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CF959851F38D4643598FA822 /* Pods-DormShop-DormShopUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DormShop-DormShopUITests.debug.xcconfig"; path = "Target Support Files/Pods-DormShop-DormShopUITests/Pods-DormShop-DormShopUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D2DEF289804B52272F0A3B73 /* Pods-DormShop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DormShop.debug.xcconfig"; path = "Target Support Files/Pods-DormShop/Pods-DormShop.debug.xcconfig"; sourceTree = "<group>"; };
@@ -211,6 +217,9 @@
 				F61D687129DDF709002A20FC /* CategoryViewCell.swift */,
 				F61727C229E487DB00879886 /* InventoryViewCell.swift */,
 				8F921D1F29E58AF90016CBE3 /* ProfileCollectionViewCell.swift */,
+				8F921D2129EB4AA00016CBE3 /* OrdersViewController.swift */,
+				8F921D2329EB4B310016CBE3 /* OrdersTableViewCell.swift */,
+				8F921D2529EB61000016CBE3 /* CreateOrderViewController.swift */,
 			);
 			path = DormShop;
 			sourceTree = "<group>";
@@ -487,6 +496,7 @@
 				F674625129CFD137004CB320 /* ProfileCell.swift in Sources */,
 				F619CA0329B82C72007CEA3C /* InboxViewController.swift in Sources */,
 				F6F77B6329918A73009C966C /* LoginViewController.swift in Sources */,
+				8F921D2229EB4AA00016CBE3 /* OrdersViewController.swift in Sources */,
 				F61D687229DDF709002A20FC /* CategoryViewCell.swift in Sources */,
 				F6F77B5F29918A73009C966C /* AppDelegate.swift in Sources */,
 				F68548BD29B6FB1400D7F6AC /* SearchViewController.swift in Sources */,
@@ -505,9 +515,11 @@
 				F674625729D4E307004CB320 /* TabBarController.swift in Sources */,
 				F61214B2299261B900C94D1C /* FeedViewController.swift in Sources */,
 				F619CA0729BC2491007CEA3C /* ActivityViewCell.swift in Sources */,
+				8F921D2629EB61000016CBE3 /* CreateOrderViewController.swift in Sources */,
 				F674625529CFD164004CB320 /* ProfileItemsCell.swift in Sources */,
 				F674625329CFD14D004CB320 /* ProfileBttnsCell.swift in Sources */,
 				F6F77B6129918A73009C966C /* SceneDelegate.swift in Sources */,
+				8F921D2429EB4B310016CBE3 /* OrdersTableViewCell.swift in Sources */,
 				F6998DB629CB5B1500603947 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

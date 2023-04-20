@@ -12,13 +12,15 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var cellImage: UIImageView!
     
-    
     @IBOutlet weak var cellDescription: UILabel!
+    
+    @IBOutlet weak var cellPrice: UILabel!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Set the text alignment to left
-        cellDescription.textAlignment = .left
     }
     
 }

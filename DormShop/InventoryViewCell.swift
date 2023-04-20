@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class InventoryViewCell: UICollectionViewCell {
     
     @IBOutlet weak var inventoryImgView: UIImageView!

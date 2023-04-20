@@ -200,6 +200,7 @@ class MyClass {
     static let shared = MyClass()
     var currentUser: PFObject =   PFUser.current()!
     var filteredBusinesses = [PFObject]()
+    var selectedInventoryItemId = ""
 
     func getCurrentViewer()-> PFObject{
         if isUser(currentViewer: currentUser){

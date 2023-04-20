@@ -15,10 +15,16 @@ class SearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollectionV
     @IBOutlet weak var BusinessName: UILabel!
     @IBOutlet weak var BusinessLocation: UILabel!
     @IBOutlet weak var BusinessRating: UILabel!
+    var viewController: UIViewController?
+
     
     @IBOutlet weak var inventoryCollectionView: UICollectionView!
     
     var currInventory :[PFObject] = []
+    
+    var currentItemId: String = ""
+    
+    var didSelectItem: ((String) -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,11 +34,13 @@ class SearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollectionV
 
     }
     
-    func configure(with currBusiness: PFObject ) {
+    func configure(with currBusiness: PFObject, viewController: UIViewController ) {
         let businessId = currBusiness.objectId
         self.currInventory = queryInventory(businessId: businessId!)
         print("=================----------------------")
         print(self.currInventory)
+        self.viewController = viewController
+        
      }
     
     func queryInventory(businessId: String) -> [PFObject] {
@@ -77,6 +85,29 @@ class SearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollectionV
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(currInventory[indexPath.row])
+        let selectedInventory = currInventory[indexPath.row]
+        
+        currentItemId = selectedInventory.objectId!
+        print("Search Result Cell - ItemId")
+        print(currentItemId)
+        // For example, you could perform a segue to a detail view controller passing the selected inventory object
+     
+        didSelectItem?(currentItemId)
+        viewController!.performSegue(withIdentifier: "popOver", sender: selectedInventory)
     }
+    
+    
+//     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "popOver"{
+//
+//            let createOrderController = segue.destination as! CreateOrderViewController
+//            // createOrderController
+//            print("Search Result Cell - ItemId")
+//            print(currentItemId)
+//
+//            createOrderController.currentItemId = self.currentItemId
+//        }
+        
+//    }
 
 }
