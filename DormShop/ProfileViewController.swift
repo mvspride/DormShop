@@ -20,15 +20,11 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     var inventories = [PFObject]()
     
-    
+    var currentItemId: String = ""
     
     @IBOutlet weak var headerView: UIView!
     var headerHeight: CGFloat = 200 // Set the height of the header view
     
-   
-    
-    
-
     
     @IBAction func switchBttn(_ sender: UIButton) {
            // Get a reference to the tab bar controller
@@ -48,6 +44,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         profileDesc.placeholder = "Description Goes Here..."
+        profileDesc.borderStyle = .roundedRect
         queryInventory()
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -91,7 +88,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                 }
             }
     }
-    
+        
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             return inventories.count
         }
@@ -105,7 +102,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             let urlString = imageFile?.url! ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
             let url = URL(string: urlString)!
             cell.cellImage.af.setImage(withURL: url)
-            cell.cellDescription.text = inventory["price"] as! String?
+            cell.cellDescription.text = inventory["description"] as! String?
+            cell.cellPrice.text = inventory["price"] as! String?
             // Set the image of the inventory item here
             return cell
         }
@@ -116,5 +114,30 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             return CGSize(width: width, height: height)
                
         }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // Handle the selection of the cell at the given index path
+        
+        
+        let selectedInventory = inventories[indexPath.row]
+        
+        currentItemId = selectedInventory.objectId!
+        print("Profile View Controller - ItemId")
+        print(currentItemId)
+        // For example, you could perform a segue to a detail view controller passing the selected inventory object
+        performSegue(withIdentifier: "showDetail", sender: selectedInventory)
+    }
+    
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "showDetail"{
+                
+                let createOrderController = segue.destination as! CreateOrderViewController
+                // createOrderController
+                
+                createOrderController.currentItemId = self.currentItemId
+            }
+            
+        }
+
 }
 

@@ -6,23 +6,29 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var captionTextField: UITextField!
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var productName: UITextField!
+    @IBOutlet weak var captionLabel: UILabel!
     
     var currentUser =  MyClass.shared.getCurrentViewer()
     var businesses = [PFObject]()
     var filteredBusinesses = [PFObject]()
     var inventoryTrueFeedFalse = false
-    
+  //  @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         priceTextField.keyboardType = .decimalPad
-        priceTextField.placeholder = "Enter price here"
+        priceTextField.placeholder = "Enter Price here"
         
         captionTextField.borderStyle = .roundedRect
-        captionTextField.placeholder = "Enter caption here"
+        captionTextField.placeholder = "Enter Caption here"
+        
+        productName.placeholder = "Enter Product Name here"
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+        
        
         
     }
@@ -80,13 +86,27 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         // Get a reference to the label and text field
         let myLabel = self.view.viewWithTag(1) as! UILabel
         let myTextField = self.view.viewWithTag(2) as! UITextField
+        let myLabel1 = self.view.viewWithTag(3) as! UILabel
+        let myTextField1 = self.view.viewWithTag(4) as! UITextField
+        
         
         // Hide or show the label and text field based on the state of the toggle switch
         myLabel.isHidden = !sender.isOn
         myTextField.isHidden = !sender.isOn
+        myLabel1.isHidden = !sender.isOn
+        myTextField1.isHidden = !sender.isOn
         
         // Set feedTrueInventoryFalse to true if the switch is turned on
         inventoryTrueFeedFalse = sender.isOn
+        
+        if sender.isOn {
+            captionLabel.text = "Product Description"
+            captionTextField.placeholder = "Enter Product Description here"
+        } else {
+            captionLabel.text = "Caption"
+            captionTextField.placeholder = "Enter caption here"
+        }
+        
     }
     
     @IBAction func takePicture(_ sender: UIButton) {
@@ -133,10 +153,6 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
             
             let imageFile2 = PFFileObject(name: "image.jpg", data: imageData2)
             inventory["content"] = imageFile2
-            print(currentUser.objectId)
-            print("Im here")
-            print("current user")
-            print(MyClass.shared.getCurrentViewer().objectId)
             inventory.saveInBackground()
         }
         else {

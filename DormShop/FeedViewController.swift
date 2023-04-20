@@ -17,6 +17,8 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBOutlet var tableView: UITableView!
     var spinner = UIActivityIndicatorView()
     let refreshControl = UIRefreshControl()
+    
+    var pushed : String = ""
   
     
     var user = PFUser.current()
