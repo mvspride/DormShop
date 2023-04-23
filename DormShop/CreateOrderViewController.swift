@@ -75,6 +75,7 @@ class CreateOrderViewController: UIViewController {
             alertController.addAction(okAction)
             present(alertController, animated: true, completion: nil)
         }
+        
     }
     
     func queryInventory(){
@@ -122,6 +123,7 @@ class CreateOrderViewController: UIViewController {
     }
     
     @IBAction func saveOrder(_ sender: Any) {
+        print(quantity)
         if quantity > 0 {
             let order = PFObject(className: "Orders")
             order["businessId"] = businessId
@@ -137,7 +139,7 @@ class CreateOrderViewController: UIViewController {
             }
             let imageFile2 = PFFileObject(name: "image.jpg", data: imageData2)
             order["content"] = imageFile2
-            
+
             order.saveInBackground()
             
             self.dismiss(animated: true, completion: nil)

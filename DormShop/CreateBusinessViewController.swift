@@ -1,4 +1,3 @@
-//
 //  CreateBusinessViewController.swift
 //  DormShop
 //
@@ -17,9 +16,7 @@ class CreateBusinessViewController: UIViewController {
     @IBOutlet weak var businessCategory: UITextField!
     
     @IBOutlet weak var businessLocation: UITextField!
-    
-    var businesses = [PFObject]()
-    
+        
     var currentUser = PFUser.current()
     
     @IBAction func createBusinessBttn(_ sender: UIButton) {
@@ -27,12 +24,20 @@ class CreateBusinessViewController: UIViewController {
         business["username"] = businessNameField.text
         business["owner"] = PFUser.current()
         business["description"] = businessDescription.text
-        business["category"] = businessCategory.text
         business["location"] = businessLocation.text
         business["Rating"] = "0.0"
+       
+        
+
+        
+
         business.saveInBackground { (success, error) in
             if (success) {
-                print("Object saved successfully.")
+                self.currentUser!["currentBusinessId"] = business.objectId
+                let category = PFObject(className: "Account_tag")
+                category["businessId"] = business.objectId
+                category["category"] = self.businessCategory.text
+                category.saveInBackground()
                 self.performSegue(withIdentifier: "toBnsProfileSegue", sender: nil)
 
             } else {
@@ -58,16 +63,6 @@ class CreateBusinessViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let query = PFQuery(className: "Business")
-            query.whereKey("owner", containedIn: [PFUser.current()!])
-            query.limit = 20
-            query.findObjectsInBackground{(businesses,error) in
-                if businesses != nil {
-                    self.businesses = businesses!
-                    print(self.businesses)
-            }
-            // Do any additional setup after loading the view.
-        }
         
     }
     

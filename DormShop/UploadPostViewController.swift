@@ -18,6 +18,7 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
     var filteredBusinesses = [PFObject]()
     var inventoryTrueFeedFalse = false
     var previousPriceText = ""
+    var notificationBoolean = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,16 +66,18 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         currentUser = MyClass.shared.getCurrentViewer()
-        
+    
         if myClass.isUser(currentViewer: currentUser) {
-            // Do something if the current viewer is a user
-            let alertController = UIAlertController(title: "Business Feature", message: "Unable to Save", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
-            submitButton.isEnabled = false
-            uploadPhotoButton.isEnabled = false
-
+            if notificationBoolean {
+                // Do something if the current viewer is a user
+                let alertController = UIAlertController(title: "Business Feature", message: "Unable to Save", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                present(alertController, animated: true, completion: nil)
+                submitButton.isEnabled = false
+                uploadPhotoButton.isEnabled = false
+                notificationBoolean = false
+            }
             
         } else {
             submitButton.isEnabled = true

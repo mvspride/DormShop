@@ -1,4 +1,4 @@
-//
+
 //  ProfileViewController.swift
 //  DormShop
 //
@@ -17,12 +17,14 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var profileDesc: UITextField!
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    var currentUser = MyClass.shared.getCurrentViewer()
     @IBOutlet weak var editProfileButton: UIButton!
-    
+
     var inventories = [PFObject]()
     
     var currentItemId: String = ""
+    var spinner = UIActivityIndicatorView()
+
     
     @IBOutlet weak var headerView: UIView!
     var headerHeight: CGFloat = 200 // Set the height of the header view
@@ -43,6 +45,14 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
            tabBarController.viewControllers = viewControllers
         
     }
+    func spinnerF(){
+        spinner.style = .large
+        spinner.color = .gray
+        spinner.center = view.center
+        view.addSubview(spinner)
+        spinner.startAnimating()
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         profileDesc.placeholder = "Description Goes Here..."
@@ -59,17 +69,26 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.spinnerF()
         queryInventory()
+        self.currentUser = MyClass.shared.getCurrentViewer()
         profileDesc.borderStyle = .roundedRect
         profileDesc.isUserInteractionEnabled = false
-        let currentUser = MyClass.shared.getCurrentViewer()
         let username = currentUser["username"] as? String
         profileNameBttn.setTitle(username, for: .normal)
-        profileDesc.text = currentUser["description"] as? String
-        let imageFile = currentUser["content"] as? PFFileObject
-        let urlString = imageFile?.url! ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
+        
+        if let description = currentUser["description"] as? String {
+            profileDesc.text = description
+            print(description)
+        } else {
+            print("Description not found or not a String")
+        }
+        let urlString = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
         let url = URL(string: urlString)!
         profileImgView.af.setImage(withURL: url)
+        
+        self.spinner.stopAnimating()
+
 
     }
     
@@ -93,12 +112,15 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InventoryCell", for: indexPath) as! ProfileCollectionViewCell
             let inventory = inventories[indexPath.row]
+            print(inventory)
+            print("_____________________________________")
             let imageFile = inventory["content"] as? PFFileObject
             let urlString = imageFile?.url! ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
             let url = URL(string: urlString)!
             cell.cellImage.af.setImage(withURL: url)
-            cell.cellDescription.text = inventory["ProductName"] as! String?
-            cell.cellPrice.text = "$\(inventory["price"] as? String ?? "")"
+            cell.cellDescription.text = inventory["description"] as! String?
+            cell.cellPrice.text = inventory["price"] as! String?
+            // Set the image of the inventory item here
             return cell
         }
         
@@ -134,4 +156,3 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         }
 
 }
-
