@@ -74,8 +74,8 @@ class SearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollectionV
         print("------------------------------------")
         print(currInventory.count)
         print(item)
-        cell.inventoryPrice.text = item["price"] as? String
-        cell.inventoryDscrp.text = item["description"] as? String
+        cell.inventoryPrice.text = "$\(item["price"] as? String ?? "")"
+        cell.inventoryDscrp.text = item["ProductName"] as? String
         let imageFile = item["content"] as? PFFileObject
         let urlString = imageFile?.url! ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
         let url = URL(string: urlString)!

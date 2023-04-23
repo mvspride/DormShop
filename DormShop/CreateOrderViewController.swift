@@ -21,6 +21,8 @@ class CreateOrderViewController: UIViewController {
     
     var currentUser =  MyClass.shared.getCurrentViewer()
     
+    let myClass = MyClass.shared
+    
     @IBOutlet weak var priceLabel: UILabel!
     
     var inventories = [PFObject]()
@@ -41,29 +43,43 @@ class CreateOrderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+            
         quantityLabel.text = "\(quantity)"
         // Do any additional setup after loading the view.
         productDescription.borderStyle = .roundedRect
         productDescription.isUserInteractionEnabled = false
         
-        print("-------------------------")
-        print("Create Order Item Id:")
-        print(currentItemId)
-        print("Did ItemIdReturn")
-        
         queryInventory()
         
-        
-        
+        if myClass.isUser(currentViewer: currentUser) {
+        } else {
+            // Do something if the current viewer is a user
+            let alertController = UIAlertController(title: "Customer Feature", message: "Unable to Make Order", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        }
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if myClass.isUser(currentViewer: currentUser) {
+        } else {
+            // Do something if the current viewer is a user
+            let alertController = UIAlertController(title: "Customer Feature", message: "Unable to Make Order", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        }
     }
     
     func queryInventory(){
-            let currentUser = MyClass.shared.getCurrentViewer()
-            let inventoryQuery = PFQuery(className: "Inventory")
+        let currentUser = MyClass.shared.getCurrentViewer()
+        let inventoryQuery = PFQuery(className: "Inventory")
         print("hello world")
         print(self.currentItemId)
         inventoryQuery.whereKey("objectId", equalTo: self.currentItemId)
@@ -72,11 +88,11 @@ class CreateOrderViewController: UIViewController {
                     self.inventories = inventory!
                     print(self.inventories)
                     let firstInventoryItem = self.inventories[0]
-                    let businessName = firstInventoryItem["BusinessName"] as? String
-                    let productName = firstInventoryItem["description"] as? String
+                    let productName = firstInventoryItem["ProductName"] as? String
+                    let productDescription = firstInventoryItem["description"] as? String
                     self.priceGlobal = firstInventoryItem["price"] as! String
-                    self.businessName.text = businessName
-                    self.productDescription.text = productName
+                    self.businessName.text = productName
+                    self.productDescription.text = productDescription
                     let imageFile = firstInventoryItem["content"] as? PFFileObject
                     let urlString = imageFile?.url! ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
                     let url = URL(string: urlString)!

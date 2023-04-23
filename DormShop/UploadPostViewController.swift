@@ -1,7 +1,7 @@
 import UIKit
 import Parse
 
-class UploadPostViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class UploadPostViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var captionTextField: UITextField!
     @IBOutlet weak var priceTextField: UITextField!
@@ -9,12 +9,15 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productName: UITextField!
     @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var uploadPhotoButton: UIButton!
+    @IBOutlet weak var submitButton: UIButton!
+    let myClass = MyClass.shared
     
-    var currentUser =  MyClass.shared.getCurrentViewer()
+    var currentUser = MyClass.shared.getCurrentViewer()
     var businesses = [PFObject]()
     var filteredBusinesses = [PFObject]()
     var inventoryTrueFeedFalse = false
-  //  @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
+    var previousPriceText = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,23 +29,63 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         
         productName.placeholder = "Enter Product Name here"
         
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
-       
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        // Set the text field delegates
+        captionTextField.delegate = self
+        productName.delegate = self
+        priceTextField.delegate = self
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo,
+           let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            
+            UIView.animate(withDuration: 0.3) {
+                self.view.frame.origin.y = -keyboardSize.height - 0
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    @objc func showKeyboard() {
+        priceTextField.becomeFirstResponder()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        currentUser =  MyClass.shared.getCurrentViewer()
+        currentUser = MyClass.shared.getCurrentViewer()
+        
+        if myClass.isUser(currentViewer: currentUser) {
+            // Do something if the current viewer is a user
+            let alertController = UIAlertController(title: "Business Feature", message: "Unable to Save", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+            submitButton.isEnabled = false
+            uploadPhotoButton.isEnabled = false
 
+            
+        } else {
+            submitButton.isEnabled = true
+            uploadPhotoButton.isEnabled = true
+        }
+        
     }
     
     @objc override func dismissKeyboard() {
         view.endEditing(true)
     }
-    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text?.starts(with: "-") ?? false {
@@ -59,7 +102,7 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         if textField == captionTextField {
             let allowedCharacters = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':\"<>,.?/\\ ") // add any other special characters you want to allow
             let characterSet = CharacterSet(charactersIn: string)
-            let maxLength = 300
+            let maxLength = 200
             
             // Check if the new text would exceed the character limit
             let currentText = textField.text ?? ""
@@ -75,6 +118,41 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
             
             // Otherwise, allow the edit
             return true
+        }  else if textField == productName {
+            let maxLength = 100
+            let currentText = textField.text ?? ""
+            let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+            return newText.count <= maxLength
+            
+        }  else if textField == priceTextField {
+            let existingText = textField.text ?? ""
+            let newCharacters = string
+            
+            // Allow backspace
+            if newCharacters.isEmpty {
+                return true
+            }
+            
+            // Restrict to only numeric characters
+            let numericSet = CharacterSet(charactersIn: "0123456789.")
+            if newCharacters.rangeOfCharacter(from: numericSet.inverted) != nil {
+                return false
+            }
+            
+            // Restrict to only two decimal places
+            let decimalSeparator = Locale.current.decimalSeparator ?? "."
+            if existingText.contains(decimalSeparator) && string.contains(decimalSeparator) {
+                return false
+            }
+            
+            // Check if input is an integer and append ".00" if so
+            let separatedText = existingText.components(separatedBy: decimalSeparator)
+            if separatedText.count == 2 && separatedText[1].count == 2 {
+                return false
+            }
+            
+            return true
+
         } else {
             let allowedCharacters = CharacterSet.decimalDigits.union(CharacterSet(charactersIn: "."))
             let characterSet = CharacterSet(charactersIn: string)
@@ -110,17 +188,37 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func takePicture(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        present(imagePicker, animated: true, completion: nil)
+        if myClass.isUser(currentViewer: currentUser) {
+            // Do something if the current viewer is a user
+            
+        } else {
+            // Do something if the current viewer is a business
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePicker.sourceType = .camera
+                present(imagePicker, animated: true, completion: nil)
+            } else {
+                let alertController = UIAlertController(title: "Camera Unavailable", message: "Sorry, the camera is not available.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                present(alertController, animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func choosePicture(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
+        if myClass.isUser(currentViewer: currentUser) {
+            // Do something if the current viewer is a user
+            
+        } else {
+            // Do something if the current viewer is a business
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            present(imagePicker, animated: true, completion: nil)
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -139,41 +237,62 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBAction func BusinessFeedGalleryGenerate(_ sender: UIButton) {
         
-        if inventoryTrueFeedFalse {
+        if myClass.isUser(currentViewer: currentUser) {
+            // Do something if the current viewer is a user
             
-            let inventory = PFObject(className: "Inventory")
-            inventory["BusinessId"] = currentUser.objectId
-            inventory["BusinessName"] = currentUser["username"]
-            inventory["description"] = captionTextField.text
-            inventory["price"] = priceTextField.text
-            
-            guard let imageData2 = imageView.image?.jpegData(compressionQuality: 0.5) else {
-                   return
-               }
-            
-            let imageFile2 = PFFileObject(name: "image.jpg", data: imageData2)
-            inventory["content"] = imageFile2
-            inventory.saveInBackground()
-        }
-        else {
-            
-            let post = PFObject(className: "Posts")
-            
-            post["BusinessId"] = currentUser.objectId
-            post["BusinessName"] = currentUser["username"]
-            post["numOfComments"] = 0
-            post["numOfLikes"] = 0
-            post["description"] = captionTextField.text
-            
-            guard let imageData1 = imageView.image?.jpegData(compressionQuality: 0.5) else {
-                   return
-               }
-            
-            let imageFile1 = PFFileObject(name: "image.jpg", data: imageData1)
-            post["content"] = imageFile1
-            
-            post.saveInBackground()
-            
+        } else {
+            // Do something if the current viewer is a business
+            if inventoryTrueFeedFalse {
+                
+                
+                let inventory = PFObject(className: "Inventory")
+                inventory["BusinessId"] = currentUser.objectId
+                inventory["BusinessName"] = currentUser["username"]
+                inventory["description"] = captionTextField.text
+                inventory["price"] = priceTextField.text
+                inventory["ProductName"] = productName.text
+                
+                guard let imageData2 = imageView.image?.jpegData(compressionQuality: 0.5) else {
+                    return
+                }
+                
+                let imageFile2 = PFFileObject(name: "image.jpg", data: imageData2)
+                inventory["content"] = imageFile2
+                
+                inventory.saveInBackground()
+                
+                let alertController = UIAlertController(title: "Saved", message: "Saved to Inventory", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                present(alertController, animated: true, completion: nil)
+            }
+            else {
+                
+                let post = PFObject(className: "Posts")
+                
+                post["BusinessId"] = currentUser.objectId
+                post["BusinessName"] = currentUser["username"]
+                post["numOfComments"] = 0
+                post["numOfLikes"] = 0
+                post["description"] = captionTextField.text
+                
+                
+                guard let imageData1 = imageView.image?.jpegData(compressionQuality: 0.5) else {
+                    return
+                }
+                
+                let imageFile1 = PFFileObject(name: "image.jpg", data: imageData1)
+                post["content"] = imageFile1
+                
+                post.saveInBackground()
+                
+                let alertController = UIAlertController(title: "Saved", message: "Saved to Feed", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                present(alertController, animated: true, completion: nil)
+                
+            }
         }
     }
+
 }

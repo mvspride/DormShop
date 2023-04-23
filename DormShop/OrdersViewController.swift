@@ -5,9 +5,10 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
 
     @IBOutlet weak var table: UITableView!
-    
     var orders = [PFObject]()
+    let myClass = MyClass.shared
     var currentUser =  MyClass.shared.getCurrentViewer()
+
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,26 +16,47 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
         table.delegate = self
         table.dataSource = self
         
+        currentUser =  MyClass.shared.getCurrentViewer()
         orderQuery()
+        table.reloadData()
 
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        currentUser =  MyClass.shared.getCurrentViewer()
         orderQuery()
         table.reloadData()
+
     }
     
     func orderQuery(){
-        let query = PFQuery(className: "Orders")
-        query.whereKey("customer", equalTo: currentUser as Any)
-        query.addDescendingOrder("createdAt")
-        query.limit = 20
-        query.findObjectsInBackground { (orders, error) in
-            if orders  != nil {
-                self.orders = orders!
-                self.table.reloadData()
+        if myClass.isUser(currentViewer: currentUser) {
+            // Do something if the current viewer is a user
+            let query = PFQuery(className: "Orders")
+            query.whereKey("customer", equalTo: currentUser as Any)
+            query.addDescendingOrder("createdAt")
+            query.limit = 20
+            query.findObjectsInBackground { (orders, error) in
+                if orders  != nil {
+                    self.orders = orders!
+                    self.table.reloadData()
+                }
             }
+            print("No, I am user")
+        } else {
+            // Do something if the current viewer is a business
+            let query = PFQuery(className: "Orders")
+            query.whereKey("businessId", equalTo: currentUser.objectId as String?)
+            query.addDescendingOrder("createdAt")
+            query.limit = 20
+            query.findObjectsInBackground { (orders, error) in
+                if orders  != nil {
+                    self.orders = orders!
+                    self.table.reloadData()
+                }
+            }
+            print("Yes, I am business")
         }
     }
 

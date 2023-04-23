@@ -96,8 +96,8 @@ class MenuTableViewController: UITableViewController {
             let account = UIAlertAction(title: business["username"] as? String, style: .default) { (action) in
                 self.currentUser = business
                 MyClass.shared.currentUser = business
-                self.tabBarController?.viewControllers![0].tabBarItem = nil
-                self.tabBarController?.viewControllers![1].tabBarItem = nil
+               // self.tabBarController?.viewControllers![0].tabBarItem = nil
+               //  self.tabBarController?.viewControllers![1].tabBarItem = nil
 
             }
           
@@ -230,7 +230,7 @@ class MyClass {
     }
     
     //returns true if currentViewer is a user. returns false if currentViewer is a business
-    func isUser(currentViewer: PFObject) -> Bool{
+    public func isUser(currentViewer: PFObject) -> Bool{
         if currentViewer.isMember(of: PFUser.self){
             return true
         }
