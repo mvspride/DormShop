@@ -8,12 +8,13 @@
 import UIKit
 import Parse
 
-class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource {
+class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
 
-    var user = PFUser.current()
+    var currentUser = MyClass.shared.getCurrentViewer()
     var businesses = [PFObject]()
     var filteredBusinesses = [PFObject]()
-    var  tags = [String]()
+    var tags = [String]()
+    var tagsImg = [UIImage]()
     
     var currentItemId: String = ""
     
@@ -64,9 +65,14 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
             if tags != nil {
                 
                 for tag in tags ?? []{
-                    self.tags.append(tag["tagName"] as! String)
+                    let tagName = tag["tagName"] as! String
+                    self.tags.append(tagName)
+                    self.tagsImg.append(UIImage(named: tagName)!)
                 }
                 self.categoryView.reloadData()
+                print(self.tags)
+                print("divider")
+                print(self.tagsImg)
             }
         }
     }
@@ -90,6 +96,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     func getBusinessWithIds(businessIds: [String]) {
         let query = PFQuery(className: "Business")
         query.whereKey("objectId", containedIn: businessIds)
+        query.order(byDescending: "isSubscribed")
         query.findObjectsInBackground{(result,error) in
             if result != nil {
                 self.filteredBusinesses = result!
@@ -102,6 +109,9 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     func loadBusinesses(){
         let BusinessQuery = PFQuery(className: "Business")
         BusinessQuery.whereKey("username", contains: searchField.text ?? "")
+        BusinessQuery.order(byDescending: "Rating")
+        BusinessQuery.order(byDescending: "isSubscribed")
+        
         BusinessQuery.findObjectsInBackground{(businesses,error) in
             if businesses != nil {
                 self.businesses = businesses!
@@ -122,20 +132,16 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         categoryView.dataSource = self
        
         searchField.delegate = self
-        
-        loadTags()
-        loadBusinesses()
-        MyClass.shared.filteredBusinesses = businesses
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        let category = PFObject(className: "Account_tag")
-//        category.setValue("photographer", forKey: "category")
-//        category.setObject(self.businesses[0], forKey: "business")
-//        category.setValue(self.businesses[0].objectId, forKey: "businessId")
-//        category.saveInBackground()
-    
+        loadTags()
+        loadBusinesses()
+        self.currentUser = MyClass.shared.getCurrentViewer()
+        MyClass.shared.filteredBusinesses = businesses
+
     }
     
     
@@ -146,18 +152,27 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryViewCell", for: indexPath) as! CategoryViewCell
          cell.categoryName.text = self.tags[indexPath.row]
-         let categoryImg = cell.categoryImg.image = UIImage(named: "plane")
-        //cell.backgroundColor = UIColor.blue
+         var image = self.tagsImg[indexPath.row]
+         image = image.scaledToFit(image.size)!
+         //image = image.af.imageRoundedIntoCircle()
+         image = image.withTintColor(UIColor.cyan)
          
+         cell.categoryImg.image = image
+                  
             
             return cell
         }
+
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+         return 1 // adjust the spacing here
+     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let tagName = self.tags[indexPath.row]
         getBusinessWithTag(tagName: tagName)
         
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredBusinesses.count
     }

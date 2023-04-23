@@ -17,10 +17,13 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var profileDesc: UITextField!
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    var currentUser = MyClass.shared.getCurrentViewer()
+
     var inventories = [PFObject]()
     
     var currentItemId: String = ""
+    var spinner = UIActivityIndicatorView()
+
     
     @IBOutlet weak var headerView: UIView!
     var headerHeight: CGFloat = 200 // Set the height of the header view
@@ -41,6 +44,14 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
            tabBarController.viewControllers = viewControllers
         
     }
+    func spinnerF(){
+        spinner.style = .large
+        spinner.color = .gray
+        spinner.center = view.center
+        view.addSubview(spinner)
+        spinner.startAnimating()
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         profileDesc.placeholder = "Description Goes Here..."
@@ -57,10 +68,11 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.spinnerF()
         queryInventory()
+        self.currentUser = MyClass.shared.getCurrentViewer()
         profileDesc.borderStyle = .roundedRect
         profileDesc.isUserInteractionEnabled = false
-        let currentUser = MyClass.shared.getCurrentViewer()
         let username = currentUser["username"] as? String
         profileNameBttn.setTitle(username, for: .normal)
         
@@ -73,6 +85,9 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         let urlString = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
         let url = URL(string: urlString)!
         profileImgView.af.setImage(withURL: url)
+        
+        self.spinner.stopAnimating()
+
 
     }
     
