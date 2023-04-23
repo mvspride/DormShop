@@ -698,9 +698,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = LD65CUY6S8;
+				DEVELOPMENT_TEAM = LY57R2L8MY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DormShop/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to take photos and videos for sharing with friends and family.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app uses your photo library to save and display photos for creating photo albums.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -728,9 +730,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = LD65CUY6S8;
+				DEVELOPMENT_TEAM = LY57R2L8MY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DormShop/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to take photos and videos for sharing with friends and family.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app uses your photo library to save and display photos for creating photo albums.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

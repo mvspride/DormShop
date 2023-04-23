@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     @IBOutlet weak var profileImgView: UIImageView!
     
-    @IBOutlet weak var profileDesc: UITextField!
+    @IBOutlet weak var profileDesc: UILabel!
     
     @IBOutlet weak var collectionView: UICollectionView!
     var currentUser = MyClass.shared.getCurrentViewer()
@@ -55,8 +55,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        profileDesc.placeholder = "Description Goes Here..."
-        profileDesc.borderStyle = .roundedRect
+//        profileDesc.placeholder = "Description Goes Here..."
+//        profileDesc.borderStyle = .roundedRect
         queryInventory()
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -72,8 +72,6 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         self.spinnerF()
         queryInventory()
         self.currentUser = MyClass.shared.getCurrentViewer()
-        profileDesc.borderStyle = .roundedRect
-        profileDesc.isUserInteractionEnabled = false
         let username = currentUser["username"] as? String
         profileNameBttn.setTitle(username, for: .normal)
         
