@@ -59,6 +59,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     }
     
     func loadTags(){
+        self.tags = [String]()
         let tagQuery = PFQuery(className: "Category")
         tagQuery.addDescendingOrder("timesUsed")
         tagQuery.findObjectsInBackground{(tags,error) in
@@ -66,13 +67,12 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
                 
                 for tag in tags ?? []{
                     let tagName = tag["tagName"] as! String
+                    
                     self.tags.append(tagName)
                     self.tagsImg.append(UIImage(named: tagName)!)
                 }
                 self.categoryView.reloadData()
-                print(self.tags)
-                print("divider")
-                print(self.tagsImg)
+                
             }
         }
     }
