@@ -23,6 +23,7 @@ class MenuTableViewController: UITableViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         getUserBusinesses()
+        print("let's")
 
     }
     // MARK: - Table view data source
@@ -96,8 +97,6 @@ class MenuTableViewController: UITableViewController {
             let account = UIAlertAction(title: business["username"] as? String, style: .default) { (action) in
                 self.currentUser = business
                 MyClass.shared.currentUser = business
-               // self.tabBarController?.viewControllers![0].tabBarItem = nil
-               //  self.tabBarController?.viewControllers![1].tabBarItem = nil
 
             }
           
@@ -231,7 +230,9 @@ class MyClass {
     
     //returns true if currentViewer is a user. returns false if currentViewer is a business
     public func isUser(currentViewer: PFObject) -> Bool{
-        if currentViewer.isMember(of: PFUser.self){
+        if currentViewer.objectId == PFUser.current()?.objectId{
+            print(currentViewer.objectId)
+            print(PFUser.current()?.objectId)
             return true
         }
         return false

@@ -80,8 +80,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             editProfileButton.isHidden = true
             self.spinnerF()
             customerQuery()
-            profileDesc.borderStyle = .roundedRect
-            profileDesc.isUserInteractionEnabled = false
+            
             let username = currentUser["username"] as? String
             profileNameBttn.setTitle(username, for: .normal)
             businessQuery()
@@ -93,8 +92,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             editProfileButton.isHidden = false
             self.spinnerF()
             queryInventory()
-            profileDesc.borderStyle = .roundedRect
-            profileDesc.isUserInteractionEnabled = false
+            
             let username = currentUser["username"] as? String
             profileNameBttn.setTitle(username, for: .normal)
             
@@ -114,24 +112,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func customerViewDidAppear(){
-        self.spinnerF()
-        customerQuery()
+
         didComeFromSegue = true
-        self.currentUser = MyClass.shared.getCurrentViewer()
-        let username = currentUser["username"] as? String
-        profileNameBttn.setTitle(username, for: .normal)
-        
-        if let description = currentUser["description"] as? String {
-            profileDesc.text = description
-            print(description)
-        } else {
-            print("Description not found or not a String")
-        }
-        let urlString = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
-        let url = URL(string: urlString)!
-        profileImgView.af.setImage(withURL: url)
-        
-        self.spinner.stopAnimating()
     }
     
     
