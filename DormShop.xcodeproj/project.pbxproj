@@ -10,6 +10,7 @@
 		24CBE4263C63B137BFAB9538 /* Pods_DormShop_DormShopUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25CBD85768FE9595A58E9071 /* Pods_DormShop_DormShopUITests.framework */; };
 		4A675EEA519545B233B85AFE /* Pods_DormShopTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C70C95D078886CD0DCFCD22 /* Pods_DormShopTests.framework */; };
 		7D55BC7D134EA83D0D8D0718 /* Pods_DormShop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAEFB6CEAB86D868A9CD22D /* Pods_DormShop.framework */; };
+		8F42BCBC29F6D4BC00CC37AE /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F42BCBB29F6D4BC00CC37AE /* EditProfileViewController.swift */; };
 		8F921D2029E58AF90016CBE3 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F921D1F29E58AF90016CBE3 /* ProfileCollectionViewCell.swift */; };
 		8F921D2229EB4AA00016CBE3 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F921D2129EB4AA00016CBE3 /* OrdersViewController.swift */; };
 		8F921D2429EB4B310016CBE3 /* OrdersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F921D2329EB4B310016CBE3 /* OrdersTableViewCell.swift */; };
@@ -70,6 +71,7 @@
 		20D92F9E3118F266AC8CAEC2 /* Pods-DormShop-DormShopUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DormShop-DormShopUITests.release.xcconfig"; path = "Target Support Files/Pods-DormShop-DormShopUITests/Pods-DormShop-DormShopUITests.release.xcconfig"; sourceTree = "<group>"; };
 		25CBD85768FE9595A58E9071 /* Pods_DormShop_DormShopUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DormShop_DormShopUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C70C95D078886CD0DCFCD22 /* Pods_DormShopTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DormShopTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F42BCBB29F6D4BC00CC37AE /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		8F921D1F29E58AF90016CBE3 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		8F921D2129EB4AA00016CBE3 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		8F921D2329EB4B310016CBE3 /* OrdersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersTableViewCell.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				8F921D2129EB4AA00016CBE3 /* OrdersViewController.swift */,
 				8F921D2329EB4B310016CBE3 /* OrdersTableViewCell.swift */,
 				8F921D2529EB61000016CBE3 /* CreateOrderViewController.swift */,
+				8F42BCBB29F6D4BC00CC37AE /* EditProfileViewController.swift */,
 			);
 			path = DormShop;
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 				F61214B029923B3100C94D1C /* ProfileViewController.swift in Sources */,
 				F69E57AB29BC79ED00E531D8 /* MenuTableViewController.swift in Sources */,
 				F65A6F5D29959EC300B2EF08 /* RoleViewController.swift in Sources */,
+				8F42BCBC29F6D4BC00CC37AE /* EditProfileViewController.swift in Sources */,
 				F6B005D329BFC7100029C096 /* BusinessInboxViewController.swift in Sources */,
 				F6F77B8F2991A3F3009C966C /* SignupViewController.swift in Sources */,
 				F69E57AD29BD93EB00E531D8 /* MenuCell.swift in Sources */,

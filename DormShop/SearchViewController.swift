@@ -17,6 +17,8 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     var tagsImg = [UIImage]()
     
     var currentItemId: String = ""
+    var currentBusinessId: String = ""
+    var viewController: UIViewController?
     
     
     @IBOutlet weak var searchField: UITextField!
@@ -186,6 +188,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         cell.BusinessLocation.text = business["location"] as? String
         cell.BusinessRating.text = business["Rating"] as? String
         
+        
         cell.didSelectItem = { [weak self] itemId in
             guard let self = self else { return }
             // Handle the selected item id here...
@@ -197,6 +200,16 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(filteredBusinesses[indexPath.row])
+        let selectedBusiness = filteredBusinesses[indexPath.row]
+        if let businessId = selectedBusiness.objectId {
+            //print(businessId)
+            currentBusinessId = businessId
+            //print(currentBusinessId)
+        } else {
+            currentBusinessId = ""
+        }
+        performSegue(withIdentifier: "profileViewership", sender: selectedBusiness)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -209,6 +222,17 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
 
             createOrderController.currentItemId = self.currentItemId
         }
+        
+        if segue.identifier == "profileViewership"{
+            let profileViewController = segue.destination as! ProfileViewController
+            print("Search Result Controller - currentBusinessId")
+            //print(currentBusinessId)
+            
+            profileViewController.currentBusinessId = self.currentBusinessId
+            profileViewController.customerViewDidAppear()
+        }
+            
+            
         
     }
 

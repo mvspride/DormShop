@@ -8,7 +8,7 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var orders = [PFObject]()
     let myClass = MyClass.shared
     var currentUser =  MyClass.shared.getCurrentViewer()
-
+    
    
     override func viewDidLoad() {
         super.viewDidLoad()

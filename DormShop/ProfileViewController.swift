@@ -21,9 +21,12 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var editProfileButton: UIButton!
 
     var inventories = [PFObject]()
+    var businesses = [PFObject]()
     
     var currentItemId: String = ""
+    var currentBusinessId: String = ""
     var spinner = UIActivityIndicatorView()
+    var didComeFromSegue = false
 
     
     @IBOutlet weak var headerView: UIView!
@@ -69,8 +72,51 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.currentUser = MyClass.shared.getCurrentViewer()
+        if didComeFromSegue{
+            print("here")
+            print(currentBusinessId)
+            print("here01")
+            editProfileButton.isHidden = true
+            self.spinnerF()
+            customerQuery()
+            profileDesc.borderStyle = .roundedRect
+            profileDesc.isUserInteractionEnabled = false
+            let username = currentUser["username"] as? String
+            profileNameBttn.setTitle(username, for: .normal)
+            businessQuery()
+            self.spinner.stopAnimating()
+        }
+        
+        else{
+            
+            editProfileButton.isHidden = false
+            self.spinnerF()
+            queryInventory()
+            profileDesc.borderStyle = .roundedRect
+            profileDesc.isUserInteractionEnabled = false
+            let username = currentUser["username"] as? String
+            profileNameBttn.setTitle(username, for: .normal)
+            
+            if let description = currentUser["description"] as? String {
+                profileDesc.text = description
+                print(description)
+            } else {
+                print("Description not found or not a String")
+            }
+            let urlString = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
+            let url = URL(string: urlString)!
+            profileImgView.af.setImage(withURL: url)
+            
+            self.spinner.stopAnimating()
+            
+        }
+    }
+    
+    func customerViewDidAppear(){
         self.spinnerF()
-        queryInventory()
+        customerQuery()
+        didComeFromSegue = true
         self.currentUser = MyClass.shared.getCurrentViewer()
         profileDesc.borderStyle = .roundedRect
         profileDesc.isUserInteractionEnabled = false
@@ -88,9 +134,55 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         profileImgView.af.setImage(withURL: url)
         
         self.spinner.stopAnimating()
-
-
     }
+    
+    
+    
+    
+    func customerQuery(){
+        let currentUser = MyClass.shared.getCurrentViewer()
+        let inventoryQuery = PFQuery(className: "Inventory")
+        inventoryQuery.addDescendingOrder("createdAt")
+        inventoryQuery.whereKey("BusinessId", equalTo: currentBusinessId)
+        inventoryQuery.findObjectsInBackground{(inventory,error) in
+            if inventory != nil {
+                self.inventories = inventory!
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    func businessQuery(){
+        let currentUser = MyClass.shared.getCurrentViewer()
+        let inventoryQuery = PFQuery(className: "Business")
+        inventoryQuery.whereKey("objectId", equalTo: currentBusinessId)
+        inventoryQuery.findObjectsInBackground{(businesses,error) in
+            if businesses != nil {
+                self.businesses = businesses!
+                print("____________________________________")
+                print("Businesses here")
+                print(self.businesses)
+                if let business = businesses?.first {
+                    print("Business description: \(business["description"] ?? "")")
+                    if let description = business["description"] as? String {
+                        self.profileDesc.text = description
+                        print(description)
+                    } else {
+                        print("Description not found or not a String")
+                    }
+                    let imageFile = business["content"] as? PFFileObject
+                    let urlString = imageFile?.url! ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
+                    let url = URL(string: urlString)!
+                    self.profileImgView.af.setImage(withURL: url)
+                    
+                    self.spinner.stopAnimating()
+                } else {
+                    print("Business not found")
+                }
+            }
+        }
+    }
+    
     
     func queryInventory(){
             let currentUser = MyClass.shared.getCurrentViewer()
