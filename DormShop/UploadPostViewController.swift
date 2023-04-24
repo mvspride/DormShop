@@ -22,6 +22,25 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentUser = MyClass.shared.getCurrentViewer()
+    
+        if myClass.isUser(currentViewer: currentUser) {
+            if notificationBoolean {
+                // Do something if the current viewer is a user
+                let alertController = UIAlertController(title: "Business Feature", message: "Unable to Save", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                present(alertController, animated: true, completion: nil)
+                submitButton.isEnabled = false
+                uploadPhotoButton.isEnabled = false
+                notificationBoolean = false
+            }
+            
+        } else {
+            submitButton.isEnabled = true
+            uploadPhotoButton.isEnabled = true
+        }
+        
         priceTextField.keyboardType = .decimalPad
         priceTextField.placeholder = "Enter Price here"
         

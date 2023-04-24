@@ -134,6 +134,7 @@ class CreateOrderViewController: UIViewController {
             order["quantity"] = String(quantity)
             order["status"] = "Incomplete"
             order["customer"] = currentUser
+            //order["customerEmail"] = currentUser["email"]
             guard let imageData2 = productImage.image?.jpegData(compressionQuality: 0.5) else {
                 return
             }

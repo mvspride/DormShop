@@ -1,4 +1,3 @@
-
 //  SearchViewController.swift
 //  DormShop
 //
@@ -17,6 +16,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     var tagsImg = [UIImage]()
     
     var currentItemId: String = ""
+    var currentBusinessId: String = "" 
     
     
     @IBOutlet weak var searchField: UITextField!
@@ -195,8 +195,19 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         
         return cell
     }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(filteredBusinesses[indexPath.row])
+        let selectedBusiness = filteredBusinesses[indexPath.row]
+        if let businessId = selectedBusiness.objectId {
+            //print(businessId)
+            currentBusinessId = businessId
+            //print(currentBusinessId)
+        } else {
+            currentBusinessId = ""
+        }
+        performSegue(withIdentifier: "profileViewership", sender: selectedBusiness)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -209,6 +220,17 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
 
             createOrderController.currentItemId = self.currentItemId
         }
+        
+        if segue.identifier == "profileViewership"{
+            let profileViewController = segue.destination as! ProfileViewController
+            print("Search Result Controller - currentBusinessId")
+            //print(currentBusinessId)
+            
+            profileViewController.currentBusinessId = self.currentBusinessId
+            profileViewController.customerViewDidAppear()
+        }
+            
+            
         
     }
 
