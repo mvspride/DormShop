@@ -30,6 +30,8 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let followingBttn = UIButton(type: .system)
     let campusBttn = UIButton(type: .system)
     
+    var currentBusinessId: String = ""
+    
     func setBussNavBarBttns(){
         followingBttn.setTitle("Following", for: .normal)
         followingBttn.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -47,7 +49,7 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
-        stackView.spacing = 30.0
+        stackView.spacing = 25.0
         stackView.frame = CGRect(x: 0, y: 0, width: 120, height: 40)
         
         navigationItem.titleView = stackView
@@ -84,16 +86,13 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 
         // Hide the navigation bar's bottom border
         navigationController?.navigationBar.shadowImage = UIImage()
-        //setNavBarBttns()
-        //setBussNavBarBttns()
         spinnerF()
-        
         refreshControl.addTarget(self, action: #selector(refreshTableView(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
         refreshControl.tintColor = UIColor.red
 
         //display campus posts
-        queryCampusPost()
+        //queryCampusPost()
 
 
     }
@@ -116,15 +115,18 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tableView.reloadData()
+        spinnerF()
         currUser = MyClass.shared.getCurrentViewer()
         if(MyClass.shared.isUser(currentViewer: currUser))
             {
             setNavBarBttns()
+            queryCampusPost()
         }
         else{
             setBussNavBarBttns()
         }
+        tableView.reloadData()
+        spinner.stopAnimating()
         
     }
     
@@ -150,17 +152,21 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         followingBttn.tintColor = UIColor.white
         campusBttn.tintColor = UIColor.gray
         myPostsBttn.tintColor = UIColor.gray
-
+        
         var businessesFollowingIds = [String]()
         let userFollowingsQuery = PFQuery(className: "Following")
-        userFollowingsQuery.whereKey("userId", contains: user?.objectId)
+        userFollowingsQuery.whereKey("userId", contains: currUser.objectId)
         userFollowingsQuery.findObjectsInBackground{(followings,error) in
             if followings != nil {
+                print(followings?.count)
+
                 for following in followings!{
                     let businessId = following["businessId"] as? String
                     businessesFollowingIds.append(businessId!)
+                  
                 }
-                
+            }
+            else{
             }
             let followingPostQuery = PFQuery(className: "Posts")
             followingPostQuery.addDescendingOrder("createdAt")
@@ -168,8 +174,9 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             followingPostQuery.findObjectsInBackground{(posts,error) in
                 if posts != nil {
                     self.postsToDisplay = posts!
-                    self.spinner.stopAnimating()
                     self.tableView.reloadData()
+                    self.spinner.stopAnimating()
+                    
                 }
             }
         }
@@ -188,11 +195,10 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         myPostQuery.findObjectsInBackground{(posts,error) in
             if posts != nil {
                 self.postsToDisplay = posts!
+                print("here")
+                print(self.postsToDisplay.count)
                 self.tableView.reloadData()
                 self.spinner.stopAnimating()
-                print("doneee")
-                print(posts)
-                print(self.currUser.objectId)
 
               
             }
@@ -210,6 +216,18 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let destinationVC = segue.destination as! CommentViewController
             destinationVC.currentPost = self.currentPost
         }
+        if segue.identifier == "profileViewership"{
+            let profileViewController = segue.destination as! ProfileViewController
+            print("Search Result Controller - currentBusinessId")
+            
+            profileViewController.currentBusinessId = self.currentBusinessId
+            profileViewController.customerViewDidAppear()
+
+        }
+    }
+    
+    @IBAction func goToProfile(){
+        performSegue(withIdentifier: "profileViewership", sender: nil)
     }
     
 
@@ -221,11 +239,12 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
       }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
-//        if postsToDisplay.count{
-//            print("empty")
-//        }
+        print(postsToDisplay.count)
+        if postsToDisplay.count == 0{
+        }
         let post = postsToDisplay[indexPath.row]
-        
+        print("empty")
+
         cell.usernameLabel.text = post["BusinessName"] as? String
         cell.captionLabel.text = post["description"] as? String
         cell.postIndex = indexPath.row
@@ -238,6 +257,7 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let url = URL(string: urlString)!
         cell.contentUIView.af.setImage(withURL: url)
         cell.delegate = self
+        currentBusinessId = post["BusinessId"] as! String
         
         return cell
         

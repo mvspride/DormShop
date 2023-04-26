@@ -70,7 +70,11 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
              self.dismiss(animated: true, completion: nil)
             }
         }
-        
+    //dismiss keyboard when user clicks anywhere on screen
+    @objc override func dismissKeyboard() {
+        view.endEditing(true)
+    }
+  
     
     @IBAction func takePicture(_ sender: UIButton) {
             let imagePicker = UIImagePickerController()

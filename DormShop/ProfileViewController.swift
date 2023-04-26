@@ -14,7 +14,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     @IBOutlet weak var profileImgView: UIImageView!
     
-    @IBOutlet weak var profileDesc: UILabel!
+    @IBOutlet weak var profileName: UILabel!
+    var spinner = UIActivityIndicatorView()
+
+    @IBOutlet weak var profileDesc: UITextField!
     
     @IBOutlet weak var collectionView: UICollectionView!
     var currentUser = MyClass.shared.getCurrentViewer()
@@ -25,7 +28,6 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     var currentItemId: String = ""
     var currentBusinessId: String = ""
-    var spinner = UIActivityIndicatorView()
     var didComeFromSegue = false
 
     
@@ -59,7 +61,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
 //        profileDesc.placeholder = "Description Goes Here..."
-//        profileDesc.borderStyle = .roundedRect
+        profileDesc.borderStyle = .roundedRect
         queryInventory()
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -72,13 +74,12 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.spinner
         self.currentUser = MyClass.shared.getCurrentViewer()
+        
         if didComeFromSegue{
-            print("here")
             print(currentBusinessId)
-            print("here01")
             editProfileButton.isHidden = true
-            self.spinnerF()
             customerQuery()
             
             let username = currentUser["username"] as? String

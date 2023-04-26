@@ -8,7 +8,8 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var orders = [PFObject]()
     let myClass = MyClass.shared
     var currentUser =  MyClass.shared.getCurrentViewer()
-    
+    var spinner = UIActivityIndicatorView()
+
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +25,19 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        spinner
         currentUser =  MyClass.shared.getCurrentViewer()
         orderQuery()
         table.reloadData()
+        spinner.stopAnimating()
+
+    }
+    func spinnerF(){
+        spinner.style = .large
+        spinner.color = .gray
+        spinner.center = view.center
+        view.addSubview(spinner)
+        spinner.startAnimating()
 
     }
     

@@ -17,7 +17,8 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     
     var currentItemId: String = ""
     var currentBusinessId: String = "" 
-    
+    var spinner = UIActivityIndicatorView()
+
     
     @IBOutlet weak var searchField: UITextField!
 
@@ -121,6 +122,14 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         }
         
     }
+    func spinnerF(){
+        spinner.style = .large
+        spinner.color = .gray
+        spinner.center = view.center
+        view.addSubview(spinner)
+        spinner.startAnimating()
+
+    }
     
     
     override func viewDidLoad() {
@@ -130,17 +139,19 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
 
         categoryView.delegate = self
         categoryView.dataSource = self
-       
         searchField.delegate = self
     
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        spinnerF()
         loadTags()
         loadBusinesses()
         self.currentUser = MyClass.shared.getCurrentViewer()
         MyClass.shared.filteredBusinesses = businesses
+        spinner.stopAnimating()
 
     }
     
@@ -155,16 +166,15 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
          var image = self.tagsImg[indexPath.row]
          image = image.scaledToFit(image.size)!
          //image = image.af.imageRoundedIntoCircle()
-         image = image.withTintColor(UIColor.cyan)
+         image = image.withTintColor(UIColor.systemOrange)
          
          cell.categoryImg.image = image
-                  
             
-            return cell
+        return cell
         }
 
      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-         return 1 // adjust the spacing here
+         return 5 // adjust the spacing here
      }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
