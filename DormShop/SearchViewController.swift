@@ -225,8 +225,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
 
             let createOrderController = segue.destination as! CreateOrderViewController
             // createOrderController
-            print("Search Result Controller - ItemId")
-            print(currentItemId)
+
 
             createOrderController.currentItemId = self.currentItemId
         }

@@ -67,7 +67,7 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
            let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             
             UIView.animate(withDuration: 0.3) {
-                self.view.frame.origin.y = -keyboardSize.height - 0
+                self.view.frame.origin.y = -keyboardSize.height - 10
             }
         }
     }

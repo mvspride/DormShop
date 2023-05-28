@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var profileName: UILabel!
     var spinner = UIActivityIndicatorView()
 
-    @IBOutlet weak var profileDesc: UITextField!
+    @IBOutlet weak var profileDesc: UILabel!
     
     @IBOutlet weak var collectionView: UICollectionView!
     var currentUser = MyClass.shared.getCurrentViewer()
@@ -60,12 +60,11 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        profileDesc.placeholder = "Description Goes Here..."
-        profileDesc.borderStyle = .roundedRect
         queryInventory()
         collectionView.dataSource = self
         collectionView.delegate = self
-        
+        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+                navigationItem.backBarButtonItem = backButton
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumInteritemSpacing = 0
             layout.minimumLineSpacing = 0
@@ -74,12 +73,15 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.spinner
+        spinnerF()
         self.currentUser = MyClass.shared.getCurrentViewer()
-        
+        profileName.text = currentUser["name"] as? String
         if didComeFromSegue{
             print(currentBusinessId)
-            editProfileButton.isHidden = true
+            print("currentID")
+            //editProfileButton.isHidden = true
+            editProfileButton.setTitle("Follow", for: .normal)
+            
             customerQuery()
             
             let username = currentUser["username"] as? String
@@ -103,9 +105,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             } else {
                 print("Description not found or not a String")
             }
-            let urlString = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
-            let url = URL(string: urlString)!
-            profileImgView.af.setImage(withURL: url)
+            
+            profileImgView.image = UIImage(named: "default_profile_img")
+            self.profileImgView.layer.cornerRadius = self.profileImgView.frame.size.width / 2
+            self.profileImgView.clipsToBounds = true
             
             self.spinner.stopAnimating()
             
@@ -151,11 +154,13 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                     } else {
                         print("Description not found or not a String")
                     }
-                    let imageFile = business["content"] as? PFFileObject
-                    let urlString = imageFile?.url! ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQP7ARHenfnGXcxCIhmDxObHocM8FPbjyaBg&usqp=CAU"
+                    let imageFile = business["profileImg"] as? PFFileObject
+                    let urlString = imageFile?.url! ?? ""
                     let url = URL(string: urlString)!
                     self.profileImgView.af.setImage(withURL: url)
-                    
+                    self.profileImgView.layer.cornerRadius = self.profileImgView.frame.size.width / 2
+                    self.profileImgView.clipsToBounds = true
+
                     self.spinner.stopAnimating()
                 } else {
                     print("Business not found")
@@ -192,7 +197,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             let url = URL(string: urlString)!
             cell.cellImage.af.setImage(withURL: url)
             cell.cellDescription.text = inventory["description"] as! String?
-            cell.cellPrice.text = inventory["price"] as! String?
+            cell.cellPrice.text = "$\(inventory["price"] as? String ?? "")"
+            
             // Set the image of the inventory item here
             return cell
         }

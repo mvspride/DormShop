@@ -218,8 +218,8 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         if segue.identifier == "profileViewership"{
             let profileViewController = segue.destination as! ProfileViewController
-            print("Search Result Controller - currentBusinessId")
-            
+            print("Feed Result Controller - currentBusinessId")
+            print(self.currentBusinessId)
             profileViewController.currentBusinessId = self.currentBusinessId
             profileViewController.customerViewDidAppear()
 
@@ -227,7 +227,8 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     @IBAction func goToProfile(){
-        performSegue(withIdentifier: "profileViewership", sender: nil)
+        performSegue(withIdentifier: "profileViewership", sender: self)
+
     }
     
 
@@ -239,12 +240,12 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
       }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
-        print(postsToDisplay.count)
         if postsToDisplay.count == 0{
         }
         let post = postsToDisplay[indexPath.row]
-        print("empty")
-
+        print(indexPath.row)
+        print("pride")
+        print(post["BusinessName"])
         cell.usernameLabel.text = post["BusinessName"] as? String
         cell.captionLabel.text = post["description"] as? String
         cell.postIndex = indexPath.row
@@ -257,8 +258,7 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let url = URL(string: urlString)!
         cell.contentUIView.af.setImage(withURL: url)
         cell.delegate = self
-        currentBusinessId = post["BusinessId"] as! String
-        
+        self.currentBusinessId = post["BusinessId"] as! String
         return cell
         
     }
