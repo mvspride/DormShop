@@ -158,7 +158,6 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         userFollowingsQuery.whereKey("userId", contains: currUser.objectId)
         userFollowingsQuery.findObjectsInBackground{(followings,error) in
             if followings != nil {
-                print(followings?.count)
 
                 for following in followings!{
                     let businessId = following["businessId"] as? String
@@ -195,8 +194,6 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         myPostQuery.findObjectsInBackground{(posts,error) in
             if posts != nil {
                 self.postsToDisplay = posts!
-                print("here")
-                print(self.postsToDisplay.count)
                 self.tableView.reloadData()
                 self.spinner.stopAnimating()
 
@@ -218,8 +215,7 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         if segue.identifier == "profileViewership"{
             let profileViewController = segue.destination as! ProfileViewController
-            print("Feed Result Controller - currentBusinessId")
-            print(self.currentBusinessId)
+        
             profileViewController.currentBusinessId = self.currentBusinessId
             profileViewController.customerViewDidAppear()
 
@@ -243,11 +239,12 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if postsToDisplay.count == 0{
         }
         let post = postsToDisplay[indexPath.row]
-        print(indexPath.row)
-        print("pride")
-        print(post["BusinessName"])
+        
         cell.usernameLabel.text = post["BusinessName"] as? String
         cell.captionLabel.text = post["description"] as? String
+        cell.profileImg.setImage(UIImage(named: "apparel"), for: .normal)
+        cell.profileImg.imageView?.contentMode = .scaleAspectFit
+
         cell.postIndex = indexPath.row
         let numOfLikes = post["numOfLikes"] as? Int
         let numOfComments = post["numOfComments"] as? Int
@@ -304,9 +301,8 @@ class FeedViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 extension FeedViewController: PostCellDelegate{
     func profileButton(with username: String, postIndex: Int){
         currentPost = postsToDisplay[postIndex]
-        
-        
     }
+    
     func likeButton(with username: String, postIndex: Int,likeButton: UIButton){
         self.currentPost = postsToDisplay[postIndex]
         let like = PFObject(className: "Likes")
@@ -333,7 +329,6 @@ extension FeedViewController: PostCellDelegate{
                                   print("Error deleting object: \(error.localizedDescription)")
                               } else {
                                   // Object was deleted successfully
-                                  print("Object deleted")
                                   self.currentPost["numOfLikes"] = (self.currentPost["numOfLikes"] as! Int) - 1
                                   self.currentPost.saveInBackground()
                                   self.tableView.reloadData()

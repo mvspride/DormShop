@@ -17,14 +17,14 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var currentPost: PFObject!
     var comments = [PFObject]()
-    var user = PFUser.current()
+    var currentUser = PFUser.current()
 
     
     //creates new comment and saves in data base
     @IBAction func postBttn(_ sender: UIButton) {
         let comment = PFObject(className: "Comments")
         comment["content"] = addCommentField.text
-        comment["author"] = user
+        comment["author"] = currentUser
         comment["post"] = currentPost
         currentPost!["numOfComments"] =  (currentPost["numOfComments"] as! Int) + 1
         comment.saveInBackground()
@@ -92,15 +92,17 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
         let currentComment = comments[indexPath.row] as PFObject
-        cell.usernameLabel.text = user?.username
+        cell.usernameLabel.text = currentUser?.username
         cell.commentTimeStamp.text = "2h"
         cell.commentContent.text = currentComment["content"] as? String
+        print(currentComment["author"])
         var profileBttn =  cell.profileBttn
         //query the User to get the profile Image bc it is not accessible when you simply do "user["profileImg"]
         let query = PFQuery(className: "_User")
-        query.getObjectInBackground(withId: (user?.objectId)!) { (user: PFObject?, error: Error?) in
+        query.getObjectInBackground(withId: (currentUser?.objectId)!) { (user: PFObject?, error: Error?) in
             if let user = user {
                 let profileFile = user["profileImg"] as? PFFileObject
+                print(profileFile)
                 //gets the data of the parse file inorder to transform it into a UIImage
                 profileFile!.getDataInBackground { (imageData: Data?, error: Error?) in
                     if let error = error {

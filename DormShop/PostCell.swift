@@ -25,7 +25,7 @@ class PostCell: UITableViewCell {
         delegate?.profileButton(with: usernameLabel.text!, postIndex: postIndex)
 
     }
-    
+        
     @IBAction func likeButton(_ sender: UIButton) {
         delegate?.likeButton(with: usernameLabel.text!, postIndex: postIndex, likeButton: likeButton)
 //        if likeButton.tintColor == UIColor.red{
@@ -58,6 +58,9 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     
     @IBOutlet weak var captionLabel: UILabel!
+    
+    @IBOutlet weak var profileImg: UIButton!
+    
     
     var postIndex: Int = 0
     

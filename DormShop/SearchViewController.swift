@@ -140,7 +140,9 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         categoryView.delegate = self
         categoryView.dataSource = self
         searchField.delegate = self
-    
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+                self.view.addGestureRecognizer(tapGesture)
     }
     
     

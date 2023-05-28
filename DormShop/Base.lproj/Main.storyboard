@@ -423,7 +423,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="770" translatesAutoresizingMaskIntoConstraints="NO" id="Vat-JY-CG8" customClass="PostCell" customModule="DormShop" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="770" translatesAutoresizingMaskIntoConstraints="NO" id="Vat-JY-CG8" customClass="PostCell" customModule="DormShop" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="390" height="770"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vat-JY-CG8" id="g3X-bB-iCW">
@@ -461,7 +461,7 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3pd-vQ-Mv4">
+                                                <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3pd-vQ-Mv4">
                                                     <rect key="frame" x="330" y="424" width="55" height="55"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="55" id="SHS-Zm-1pH"/>
@@ -477,7 +477,7 @@
                                                         <action selector="profileButton:" destination="Vat-JY-CG8" eventType="touchUpInside" id="fLw-Gf-zT8"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyG-fo-HWw">
+                                                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyG-fo-HWw">
                                                     <rect key="frame" x="337" y="509" width="40" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="Kh0-Xr-ucm"/>
@@ -559,6 +559,7 @@
                                             <outlet property="likeButton" destination="jyG-fo-HWw" id="abR-lr-dBY"/>
                                             <outlet property="numOfComments" destination="qAK-FL-JJa" id="RDq-5m-iEp"/>
                                             <outlet property="numOfLikes" destination="FXh-Fr-O4f" id="4LU-c4-1fC"/>
+                                            <outlet property="profileImg" destination="3pd-vQ-Mv4" id="b2q-2B-dji"/>
                                             <outlet property="usernameLabel" destination="0QB-fl-Aan" id="cgp-TE-aHf"/>
                                         </connections>
                                     </tableViewCell>
@@ -605,7 +606,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eev-xg-JRG">
-                                <rect key="frame" x="14" y="47" width="236" height="34"/>
+                                <rect key="frame" x="14" y="47" width="233" height="34"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemFillColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="LzJ-Gj-eDK"/>
@@ -827,7 +828,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="bT1-Nt-SBh">
-                                <rect key="frame" x="271" y="46" width="84" height="35"/>
+                                <rect key="frame" x="268" y="46" width="85" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="M8w-sc-OBp"/>
@@ -890,7 +891,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="MenuTableViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ih8-jW-PaC" customClass="MenuTableViewController" customModule="DormShop" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="30" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="7EP-JQ-tgp">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="787"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -1801,9 +1802,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="oWU-j7-3bm"/>
         <segue reference="Nrj-X8-mMA"/>
-        <segue reference="Pgd-X4-LYV"/>
+        <segue reference="XL7-QQ-fX7"/>
         <segue reference="S7P-U8-3n3"/>
     </inferredMetricsTieBreakers>
     <resources>

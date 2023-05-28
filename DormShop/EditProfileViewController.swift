@@ -27,6 +27,9 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
 
         profileDescr.borderStyle = .roundedRect
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+                self.view.addGestureRecognizer(tapGesture)
       
     }
     
